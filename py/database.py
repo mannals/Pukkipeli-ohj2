@@ -3,7 +3,6 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-
 class Tietokanta:
     def __init__(self):
         self.yhteys = mysql.connector.connect(
