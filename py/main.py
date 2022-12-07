@@ -3,12 +3,14 @@ import json
 from flask import Flask, Response
 
 lentsi = Lentokentta()
-lista = lentsi.luo_lentokenttalista()
+lentsilista = lentsi.luo_lentokenttalista()
 
 app = Flask(__name__)
-@app.route('/lentokentat')
-def tuo(lista):
+@app.route('/lentokentat/<lista>')
+def lentokentat(lista):
     try:
+        global lentsilista
+        lista = lentsilista
         lista_json = json.dumps(lista)
         return lista_json
     except ValueError:

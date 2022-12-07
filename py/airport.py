@@ -1,7 +1,6 @@
 from database import Tietokanta
 
 lentopeli = Tietokanta()
-
 yhteys = lentopeli.ota_yhteys()
 
 class Lentokentta:
@@ -16,7 +15,6 @@ class Lentokentta:
         kursori.execute(sql)
         tulos = kursori.fetchall()
 
-        # tehdään lista, jossa on vain lentokenttien nimet niin että ne ei ole osana tuplea (ei tule sulkuja ympärille)
         isompi_lentsikirja = {}
 
         for kentta in tulos:
@@ -24,6 +22,5 @@ class Lentokentta:
             lentsikirja['latitude'] = float(kentta[1])
             lentsikirja['longitude'] = float(kentta[2])
             isompi_lentsikirja[kentta[0]] = lentsikirja
-
 
         return isompi_lentsikirja
