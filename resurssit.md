@@ -4,6 +4,9 @@ täältä saa ikoneja, ja sieltä pari jo päätyikin bänneriin
 https://leafletjs.com/
 täältä saadaan tarvittavat karttatoiminnallisuudet
 
+https://pixabay.com/sound-effects/
+mikäli aikaa jää, täältä ääniefektejä
+
 Python-paketteja:
 Flask
 Flask-Cors (ainakin Ilkka käytti)
