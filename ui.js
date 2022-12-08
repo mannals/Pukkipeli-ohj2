@@ -23,7 +23,7 @@ async function noudaLentsidata() {
   }
 }
 
-async function siirraKarttaan() {
+async function tuoKarttaan() {
   const lentsiJson = await noudaLentsidata();
   Object.keys(lentsiJson).forEach(lentokentta => {
     var marker = L.marker([lentsiJson[lentokentta].latitude, lentsiJson[lentokentta].longitude]).addTo(map);
@@ -31,20 +31,23 @@ async function siirraKarttaan() {
   })
 }
 
-function spawnaaPoro() {
+let poroLat = 66.56167
+let poroLng = 25.83083
+
+function spawnaaPoro(lat, lng) {
   var poroIkoni = L.icon({
     iconUrl: 'img/pukkiporo.png',
 
     iconSize:     [32, 32], // size of the icon
     iconAnchor:   [16, 16], // point of the icon which will correspond to marker's location
   });
-  let poro = L.marker([66.56167, 25.83083], {icon: poroIkoni}, {draggable:'true', autopan: 'true'});
+  let poro = L.marker([lat, lng], {icon: poroIkoni}, {draggable:'true', autopan: 'true'});
   map.addLayer(poro);
 }
 
 function initialisoi() {
-  siirraKarttaan();
-  spawnaaPoro();
+  tuoKarttaan();
+  spawnaaPoro(poroLat, poroLng);
 }
 
 initialisoi();
