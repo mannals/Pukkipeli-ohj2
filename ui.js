@@ -27,7 +27,7 @@ async function siirraKarttaan() {
   const lentsiJson = await noudaLentsidata();
   Object.keys(lentsiJson).forEach(lentokentta => {
     var marker = L.marker([lentsiJson[lentokentta].latitude, lentsiJson[lentokentta].longitude]).addTo(map);
-    marker.bindPopup(`${lentokentta}`).openPopup();
+    marker.bindPopup(`<div id="infoPopup"><b>${lentokentta}</b><br><button id="lentonappain" type="button" style="width: 100%;">Lennä</button></div>`).openPopup();
   })
 }
 
@@ -37,9 +37,17 @@ function spawnaaPoro() {
 
     iconSize:     [32, 32], // size of the icon
     iconAnchor:   [16, 16], // point of the icon which will correspond to marker's location
-    popupAnchor:  [-3, -76] // point from which the popup should open relative to the iconAnchor
   });
-  L.marker([66.56167, 25.83083], {icon: poroIkoni}).addTo(map);
+  let poro = L.marker([66.56167, 25.83083], {icon: poroIkoni}, {draggable:'true', autopan: 'true'});
+  var puhisIkoni = L.icon({
+    iconUrl: 'img/chat.png',
+
+    iconSize:     [124, 124], // size of the icon
+    iconAnchor:   [62, 62], // point of the icon which will correspond to marker's location
+  });
+  let puhekupla = L.marker([69.2, 30], {icon: puhisIkoni}, {draggable:'true', autopan: 'true'});
+  map.addLayer(poro);
+  map.addLayer(puhekupla);
 }
 
 siirraKarttaan();
