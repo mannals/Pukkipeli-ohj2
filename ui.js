@@ -42,5 +42,9 @@ function spawnaaPoro() {
   map.addLayer(poro);
 }
 
-siirraKarttaan();
-spawnaaPoro();
+function initialisoi() {
+  siirraKarttaan();
+  spawnaaPoro();
+}
+
+initialisoi();
