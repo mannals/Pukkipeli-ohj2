@@ -33,7 +33,7 @@ async function siirraKarttaan() {
 
 function spawnaaPoro() {
   var poroIkoni = L.icon({
-    iconUrl: 'img/reindeer.png',
+    iconUrl: 'img/pukkiporo.png',
 
     iconSize:     [32, 32], // size of the icon
     iconAnchor:   [16, 16], // point of the icon which will correspond to marker's location
