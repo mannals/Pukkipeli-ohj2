@@ -90,4 +90,5 @@ ul {
     height: 60em;
     width: 80em;
     margin: auto;
+  border: 3px black solid;
 }

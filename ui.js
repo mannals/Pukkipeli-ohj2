@@ -31,4 +31,16 @@ async function siirraKarttaan() {
   })
 }
 
+function spawnaaPoro() {
+  var poroIkoni = L.icon({
+    iconUrl: 'img/reindeer.png',
+
+    iconSize:     [32, 32], // size of the icon
+    iconAnchor:   [16, 16], // point of the icon which will correspond to marker's location
+    popupAnchor:  [-3, -76] // point from which the popup should open relative to the iconAnchor
+  });
+  L.marker([66.56167, 25.83083], {icon: poroIkoni}).addTo(map);
+}
+
 siirraKarttaan();
+spawnaaPoro();
