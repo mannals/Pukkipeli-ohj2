@@ -1,6 +1,17 @@
+html {
+  background-image: url("img/pinesL.jpg");
+  background-repeat: no-repeat;
+}
+
+
 .container {
   width: 100%;
   position: relative;
+  text-align: center;
+}
+
+body {
+  padding: 5rem;
 }
 
 .button {
@@ -13,7 +24,7 @@
 }
 
 .button-white {
-  background-color: black;
+  background-color: #521356;
   color: white;
 }
 
@@ -33,10 +44,11 @@
 
 .page-header {
   background-color: white;
-  color: black;
+  color: rgba(86, 15, 75, 0.94);
   padding: 1rem;
   alignment: center;
   text-align: center;
+  background-color: rgba(218, 185, 185, 0.47);
 }
 
 .page-title {
@@ -44,6 +56,19 @@
   margin: 0;
   text-align: center;
   alignment: center;
+}
+
+#gamecontent {
+  position: center;
+  margin: auto;
+}
+
+
+
+#banner {
+  background-color: whitesmoke;
+  color: #521356;
+  text-align: center;
 }
 
 #paska {
@@ -64,4 +89,5 @@ ul {
 #map {
     height: 50em;
     width: 80em;
+    margin: auto;
 }
