@@ -27,6 +27,7 @@ async function siirraKarttaan() {
   const lentsiJson = await noudaLentsidata();
   Object.keys(lentsiJson).forEach(lentokentta => {
     var marker = L.marker([lentsiJson[lentokentta].latitude, lentsiJson[lentokentta].longitude]).addTo(map);
+    marker.bindPopup(`${lentokentta}`).openPopup();
   })
 }
 
