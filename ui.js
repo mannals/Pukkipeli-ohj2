@@ -39,15 +39,7 @@ function spawnaaPoro() {
     iconAnchor:   [16, 16], // point of the icon which will correspond to marker's location
   });
   let poro = L.marker([66.56167, 25.83083], {icon: poroIkoni}, {draggable:'true', autopan: 'true'});
-  var puhisIkoni = L.icon({
-    iconUrl: 'img/chat.png',
-
-    iconSize:     [124, 124], // size of the icon
-    iconAnchor:   [62, 62], // point of the icon which will correspond to marker's location
-  });
-  let puhekupla = L.marker([69.2, 30], {icon: puhisIkoni}, {draggable:'true', autopan: 'true'});
   map.addLayer(poro);
-  map.addLayer(puhekupla);
 }
 
 siirraKarttaan();
