@@ -12,6 +12,8 @@ html {
 
 body {
   padding: 5rem;
+  width: fit-content;
+  margin: auto;
 }
 
 .button {
