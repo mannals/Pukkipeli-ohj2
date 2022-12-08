@@ -5,7 +5,7 @@ html {
 
 
 .container {
-  width: 100%;
+  width: fit-content;
   position: relative;
   text-align: center;
 }
@@ -64,8 +64,6 @@ body {
   position: center;
   margin: auto;
 }
-
-
 
 #banner {
   background-color: whitesmoke;
