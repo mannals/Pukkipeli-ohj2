@@ -12,6 +12,7 @@ html {
 body {
   padding: 5rem;
   width: fit-content;
+  height: 60%;
   margin: auto;
 }
 
@@ -87,7 +88,7 @@ ul {
 }
 
 #map {
-    height: 90em;
+    height: 60em;
     width: 100%;
     margin: auto;
 }
