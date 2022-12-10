@@ -3,17 +3,57 @@ html {
   background-repeat: no-repeat;
 }
 
-.container {
-  width: 100%;
-  position: relative;
-  text-align: center;
-}
-
 body {
   padding: 5rem;
   width: 70%;
   height: 60%;
   margin: auto;
+}
+
+.container {
+  text-align: center;
+  padding-top: 8rem;
+}
+
+.page-header {
+  color: rgba(86, 15, 75, 0.94);
+  padding: 1rem;
+  text-align: center;
+  background-color: rgba(218, 185, 185, 0.47);
+  width: fit-content;
+}
+
+.page-title {
+  display: inline-flex;
+  margin: 0;
+}
+
+#paska {
+  width: 50px;
+  height: 50px;
+  padding-top: 1rem;
+}
+
+#paketti {
+  width: 50px;
+  height: 50px;
+  padding-top: 1rem;
+}
+
+ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.flex-wrap {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 45px;
+}
+
+.space-evenly {
+  margin: 0;
+  justify-content: center;
 }
 
 .button {
@@ -32,51 +72,4 @@ body {
 
 .button:hover {
   transform: scale(1.1);
-}
-
-.flex-wrap {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 45px;
-}
-
-.space-evenly {
-  margin: 0;
-  justify-content: center;
-}
-
-.page-header {
-  color: rgba(86, 15, 75, 0.94);
-  padding: 1rem;
-  text-align: center;
-  background-color: rgba(218, 185, 185, 0.47);
-}
-
-.page-title {
-  display: inline-flex;
-  margin: 0;
-  position: center;
-}
-
-#banner {
-  background-color: whitesmoke;
-  color: #521356;
-  text-align: center;
-}
-
-#paska {
-  width: 50px;
-  height: 50px;
-  padding-top: 1rem;
-}
-
-#paketti {
-  width: 50px;
-  height: 50px;
-  padding-top: 1rem;
-}
-
-ul {
-  list-style-type: none;
-  padding: 0;
 }
