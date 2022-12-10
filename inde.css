@@ -45,7 +45,6 @@ body {
   justify-content: center;
 }
 
-
 .page-header {
   color: rgba(86, 15, 75, 0.94);
   padding: 1rem;
@@ -57,11 +56,6 @@ body {
   display: inline-flex;
   margin: 0;
   position: center;
-}
-
-#gamecontent {
-  position: center;
-  margin: auto;
 }
 
 #banner {
@@ -85,10 +79,4 @@ body {
 ul {
   list-style-type: none;
   padding: 0;
-}
-
-#map {
-    height: 60em;
-    width: 100%;
-    margin: auto;
 }
