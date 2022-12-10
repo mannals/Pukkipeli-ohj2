@@ -51,3 +51,14 @@ function initialisoi() {
 }
 
 initialisoi();
+
+//modal heti ladatessa, EI TOIMI
+var startModal = new bootstrap.Modal(document.getElementById('startModal'))
+startModal.show();
+//muuttujat about dialogin sulkemiselle
+const dialog = document.getElementById('startModal')
+const closeDialog = document.getElementById('span')
+//sulkee about dialogin
+closeDialog.addEventListener('click',() => {
+  dialog.close();
+})
