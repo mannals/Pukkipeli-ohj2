@@ -11,21 +11,19 @@ body {
 }
 
 .container {
-  text-align: center;
   padding-top: 8rem;
 }
 
 .page-header {
   color: rgba(86, 15, 75, 0.94);
   padding: 1rem;
-  text-align: center;
   background-color: rgba(218, 185, 185, 0.47);
-  width: fit-content;
+  text-align: center;
 }
 
 .page-title {
-  display: inline-flex;
   margin: 0;
+  display: inline-flex;
 }
 
 #paska {
