@@ -1,21 +1,18 @@
-import requests
 from airport import Lentokentta
-from flask import jsonify
-
+import json
+import requests
 
 lentsi = Lentokentta()
 lentsikirja = lentsi.luo_lentokenttalista()
 
-lentsi_json = jsonify(lentsikirja)
+lentsikirjaString = json.dumps(lentsikirja)
+lentsikirjaParse = json.loads(lentsikirjaString)
 
-lat = lentsi_json['latitude']
-lon = lentsi_json['longitude']
+for values in lentsikirjaParse.values():
+    lat = values['latitude']
+    lon = values['longitude']
+    url = f'http://api.openweathermap.org/data/2.5/air_pollution?lat={lat}&lon={lon}&appid=df2f23555b8bb70eff10e105302daa5f'
+    vastaus = requests.get(url).json()
+    index = vastaus['list'][0]['main']['aqi']
+    print(index)
 
-url = f'http://api.openweathermap.org/data/2.5/air_pollution?lat={lat}&lon={lon}&appid=d8d27e31da98f04894338ef22df6fec9'
-
-vastaus = requests.get(url).json()
-
-
-index = vastaus['list']['main']['aqi']
-
-print(index)
