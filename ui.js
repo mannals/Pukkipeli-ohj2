@@ -1,9 +1,9 @@
 'use strict';
 
 const map = L.map('map').setView([55.97, 12.83], 4);
-let poroLat = 66.56167
-let poroLng = 25.83083
-var airportMarkers = null;
+
+let poroLat = 66.56167;
+let poroLng = 25.83083;
 var poroIkoni = L.icon({
     iconUrl: 'img/pukkiporo.png',
 
@@ -19,12 +19,17 @@ var poroOptions = {
    riseOffset: 250
   }
 
+var airportMarkers = null;
+
 var layer = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
   maxZoom: 19,
-  attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-})
+  attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+  draggable: false
+});
 
 map.addLayer(layer);
+
+
 
 async function noudaLentsidata() {
   console.log('Noudetaan lentokenttädataa');
@@ -64,7 +69,7 @@ async function tuoKarttaan(poro) {
         map.removeLayer(poro);
         poro = L.marker([lat, lng], poroOptions).addTo(map);
       }
-    })
+    });
     markerList.push(marker);
   })
 
@@ -73,8 +78,11 @@ async function tuoKarttaan(poro) {
   map.addLayer(airportMarkers);
 }
 
-function layerOrder() {
-  global
+let kakkamaarat = 0;
+
+function kakkaa() {
+  kakkamaarat++;
+  console.log(kakkamaarat);
 }
 
 

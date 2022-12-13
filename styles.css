@@ -101,3 +101,17 @@ ul {
     width: 100%;
     margin: auto;
 }
+
+#kakkaNappain {
+  background-color: white;
+  padding: 1em;
+  margin: 1em;
+  border: #88a9b2 3px solid;
+  border-radius: 2em;
+  z-index: 99999;
+  position: relative;
+}
+
+#kakkaNappain:hover {
+  cursor: pointer;
+}
