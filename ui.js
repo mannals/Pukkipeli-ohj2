@@ -1,7 +1,9 @@
 'use strict';
 
 const map = L.map('map').setView([55.97, 12.83], 4);
-let airportMarkers = null;
+let poroLat = 66.56167
+let poroLng = 25.83083
+var airportMarkers = null;
 
 var layer = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
   maxZoom: 19,
@@ -23,12 +25,17 @@ async function noudaLentsidata() {
   }
 }
 
-async function tuoKarttaan() {
+async function tuoKarttaan(poro) {
   let lentsiJson = await noudaLentsidata();
   let markerList = [];
+  let markerOptions = {
+   title: "Lentokenttamarkkeri",
+   clickable: true,
+   draggable: false
+  }
 
   Object.keys(lentsiJson).forEach(lentokentta => {
-    var marker = L.marker([lentsiJson[lentokentta].latitude, lentsiJson[lentokentta].longitude]);
+    var marker = L.marker([lentsiJson[lentokentta].latitude, lentsiJson[lentokentta].longitude], markerOptions);
     marker.bindPopup(`<div id="infoPopup"><b>${lentokentta}</b></div>`);
     marker.on('mouseover', function(e) {
       this.openPopup();
@@ -36,13 +43,22 @@ async function tuoKarttaan() {
     marker.on('mouseout', function(e) {
       this.closePopup();
     });
+    marker.on('click', function(e) {
+      let lat = e.latlng.lat;
+      let lng = e.latlng.lng;
+      let uusporo = liikutaPoroa(lat, lng, poro)
+    })
     markerList.push(marker);
   })
 
-  let airportGroup = L.layerGroup(markerList);
-  map.addLayer(airportGroup);
+  var airportGroup = L.layerGroup(markerList);
+  airportMarkers = airportGroup;
+  map.addLayer(airportMarkers);
 }
 
+function layerOrder() {
+  global
+}
 
 
 function kentilleLiikkuminen(ryhma) {
@@ -54,37 +70,56 @@ function kentilleLiikkuminen(ryhma) {
   })
 }
 
-let poroLat = 66.56167
-let poroLng = 25.83083
-
 function spawnaaPoro(lat, lng) {
-  var poroIkoni = L.icon({
+  const poroIkoni = L.icon({
     iconUrl: 'img/pukkiporo.png',
 
     iconSize:     [32, 32], // size of the icon
     iconAnchor:   [16, 16], // point of the icon which will correspond to marker's location
   });
-  let poro = L.marker([lat, lng], {icon: poroIkoni}, {draggable:'true', autopan: 'true'});
-  map.addLayer(poro);
+  let poroOptions = {
+   title: "Pukkiporomarkkeri",
+   clickable: true,
+   draggable: false,
+   icon: poroIkoni,
+   riseOnHover: true,
+   riseOffset: 250
+  }
+  var poro = L.marker([lat, lng], poroOptions);
+  return poro;
 }
 
-function liikutaPoroa(lat, lng) {
+function poistaPoro() {
+  
+}
+
+function liikutaPoroa(lat, lng, poro) {
   map.removeLayer(poro);
-  var poroIkoni = L.icon({
+  const poroIkoni = L.icon({
     iconUrl: 'img/pukkiporo.png',
 
     iconSize:     [32, 32], // size of the icon
     iconAnchor:   [16, 16], // point of the icon which will correspond to marker's location
   });
-  let poro = L.marker([lat, lng], {icon: poroIkoni}, {draggable:'true', autopan: 'true'});
+  let poroOptions = {
+   title: "Pukkiporomarkkeri",
+   clickable: true,
+   draggable: false,
+   icon: poroIkoni,
+   riseOnHover: true,
+   riseOffset: 250
+  }
+  var poro = L.marker([lat, lng], poroOptions);
   map.addLayer(poro);
 
 }
 
 
-function initialisoi() {
-  tuoKarttaan();
-  spawnaaPoro(poroLat, poroLng);
+async function initialisoi() {
+  var pukkiporo = spawnaaPoro(poroLat, poroLng);
+  map.addLayer(pukkiporo);
+  await tuoKarttaan(pukkiporo);
+
 }
 
 initialisoi();
