@@ -22,14 +22,16 @@
             integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
             crossorigin="anonymous"></script>
 
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet-easybutton@2/src/easy-button.css">
+    <script src="https://cdn.jsdelivr.net/npm/leaflet-easybutton@2/src/easy-button.js"></script>
     <script type="text/javascript">
-        window.onload = function () {
-            OpenBootstrapPopup();
-        };
+      window.onload = function () {
+        OpenBootstrapPopup();
+      };
 
-        function OpenBootstrapPopup() {
-            $("#simpleModal").modal('show');
-        }
+      function OpenBootstrapPopup() {
+        $("#simpleModal").modal('show');
+      }
     </script>
     <!-- Avaus modal loppuu -->
     <link rel="stylesheet" href="styles.css">
@@ -84,7 +86,9 @@
 </div>
 
 <div id="gamecontent">
-    <div id="map"></div>
+    <div id="map">
+
+    </div>
 </div>
 
 </body>

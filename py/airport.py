@@ -41,9 +41,6 @@ class Lentokentta:
 
             self.lentokenttadata[lentsi]['air pollution index'] = indeksi
 
-            print(lentsi)
-            print(indeksi)
-
             sql = f'UPDATE airport SET air_pollution = {indeksi} WHERE name = "{lentsi}";'
             kursori = yhteys.cursor()
             kursori.execute(sql)

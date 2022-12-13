@@ -8,9 +8,9 @@ class Tietokanta:
         self.yhteys = mysql.connector.connect(
             host='localhost',
             port=3306,
-            database='fl1ght_game',
+            database='lentopeli',
             user='root',
-            password='vaahtokarkki',
+            password='MiksiRikoit56Lamppua?',
             autocommit=True
         )
 
