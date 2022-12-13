@@ -170,6 +170,7 @@ document.querySelector('#player-form').addEventListener('submit', function (evt)
   evt.preventDefault();
   const playerName = document.querySelector('#player-input').value;
   document.querySelector('#player-modal').classList.add('hide');
+  //täysin väärät funktio nimet, referoi ilkan peliä
   gameSetup(`${apiUrl}newgame?player=${playerName}&loc=${startLoc}`);
 });
 
