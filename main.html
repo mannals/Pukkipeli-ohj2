@@ -56,10 +56,11 @@
             </div>
             <!-- yritys siirtää pelaajan nimi tietokantaan -->
             <div class="name">
-                <form type="form" class="name_form" action=```` method="POST">
-                    <input type="text" name="name" value="{{request.form.name}}">
-                    <button type="submit" class="name_button">Tallenna pelaajanimesi</button>
+                <form id="username">
+                    <input id="player-name" type="text" placeholder="Pelaajan nimi" required>
+                    <input type="submit" class="name_button" value="Start game">Tallenna pelaajanimesi</input>
                 </form>
+    </div>
             </div>
             <!-- yritys siirtää pelaajan nimi tietokantaan -->
             <div class="modal-footer">

@@ -14,8 +14,8 @@ yhteys = lentopeli.ota_yhteys()
 def nimea_pelaaja(nimi: str):
     #if lauseen lisäys ja nimi funktion lisäys
     if request.method == 'POST':
-        nimi = request.form['name']
-        sql = f'INSERT INTO peli(name) VALUES ("{nimi}");'
+        username = request.form['username']
+        sql = f'INSERT INTO peli(name) VALUES ("{username}");'
         kursori = yhteys.cursor()
         kursori.execute(sql)
 
