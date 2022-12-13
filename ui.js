@@ -173,4 +173,4 @@ document.querySelector('#player-form').addEventListener('submit', function (evt)
   gameSetup(`${apiUrl}newgame?player=${playerName}&loc=${startLoc}`);
 });
 
-
+//yritys loppu
