@@ -2,7 +2,6 @@
 
 const map = L.map('map').setView([55.97, 12.83], 4);
 
-const pelaajanNimi = document.querySelector('#pelaajanNimi').value
 let poroLat = 66.56167;
 let poroLng = 25.83083;
 let sijainti = "Rovaniemi Airport";
@@ -100,14 +99,16 @@ async function tuoKarttaan(poro) {
     marker.on('mouseout', function(e) {
       this.closePopup();
     });
-    marker.on('click', function(e) {
-      let lat = e.latlng.lat;
-      let lng = e.latlng.lng;
+    marker.on('click', async function(e) {
+      poroLat = e.latlng.lat;
+      poroLng = e.latlng.lng;
       if (poro != undefined) {
         map.removeLayer(poro);
-        poro = L.marker([lat, lng], poroOptions).addTo(map);
+        poro = spawnaaPoro(poroLat, poroLng, poroOptions);
+        map.addLayer(poro);
       }
-
+      let uudetSpeksit = await fetch(
+      `http://127.0.0.1:3000/porospeksit?pelaaja=${pelaajanNimi}&lat=${poroLat}&lng=${poroLng}`)
       // fetch (osoite/kakattu?icao=${lentsiJson[lentokentta].icao}&peli_id=${pelin id})
     });
     markerList.push(marker);
@@ -136,7 +137,7 @@ function kentilleLiikkuminen(ryhma) {
 }
 
 function spawnaaPoro(lat, lng, options) {
-  var poro = L.marker([lat, lng], options);
+  let poro = L.marker([lat, lng], options);
   return poro;
 }
 

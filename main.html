@@ -52,12 +52,12 @@
                 lentämistä vastaan!<br>Porosi tehtävä on kakata lentokoneiden päälle. Lennätte kuitenkin niin korkealla,
                 ettette näe, millä lentokentillä on lentokoneita. Toivotaan parasta!<br>Jokaisesta koneesta, jonka
                 päälle porosi kakkaa onnistuneesti, saat yhden lahjan, joita myöhemmin jakaa lapsille.<br>
-                <br><b>Mutta ensin, kerro nimesi!</b>
+                <br><b>Mutta ensin kerro nimesi!</b>
             </div>
             <!-- yritys siirtää pelaajan nimi tietokantaan -->
             <div class="name">
                 <form type="form" class="name_form" action=```` method="POST">
-                    <input id="pelaajanNimi" type="text" name="name" value="{{request.form.name}}">
+                    <input id="pelaajanNimi" type="text" name="name">
                     <button id="sendStart" type="submit" class="name_button" data-dismiss="modal">Aloita peli</button>
                 </form>
             </div>
