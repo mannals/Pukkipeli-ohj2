@@ -36,11 +36,15 @@ var ourCustomControl = L.Control.extend({
   },
 
   onAdd: function (map) {
-    var container = L.DomUtil.create('div', 'leaflet-bar leaflet-control leaflet-control-custom');
-    container.style.backgroundColor = 'white';
+    var container = L.DomUtil.create('button');
+    container.type = "button";
+    container.innerHTML = '<img src="img/poop.png" height="100%" width="100%" style="padding: 1em;">'
     container.style.width = '64px';
     container.style.height = '64px';
-    container.innerHTML = '<img src="img/poop.png" height="64px" style="padding: 1em;">'
+    container.style.alignContent = 'center';
+    container.style.border = '#88a9b2 2px solid';
+    container.style.borderRadius = '2em';
+
     container.style.margin = '10px';
     container.style.alignContent = 'center';
     container.style.cursor = 'pointer';
