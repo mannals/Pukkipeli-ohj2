@@ -3,10 +3,13 @@ html {
   background-repeat: no-repeat;
 }
 
-.container {
-  width: 100%;
-  position: relative;
+.modal-header {
+  color: #521356;
+}
+
+.modal-body {
   text-align: center;
+  color: #521356;
 }
 
 body {
@@ -14,6 +17,12 @@ body {
   width: 70%;
   height: 60%;
   margin: auto;
+}
+
+.container {
+  width: 100%;
+  position: relative;
+  text-align: center;
 }
 
 .button {
