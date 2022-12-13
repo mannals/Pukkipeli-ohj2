@@ -1,13 +1,24 @@
 from database import Tietokanta
 
+#yritys
+from flask import Flask
+from flask import request
+#yritys
+
 lentopeli = Tietokanta()
 yhteys = lentopeli.ota_yhteys()
 
 #alkuperäiset funktiot
+
+
 def nimea_pelaaja(nimi: str):
-    sql = f'INSERT INTO peli(name) VALUES ("{nimi}");'
-    kursori = yhteys.cursor()
-    kursori.execute(sql)
+    #if lauseen lisäys ja nimi funktion lisäys
+    if request.method == 'POST':
+        nimi = request.form['name']
+        sql = f'INSERT INTO peli(name) VALUES ("{nimi}");'
+        kursori = yhteys.cursor()
+        kursori.execute(sql)
+
 
 
 def paivita_kakka():
