@@ -12,7 +12,7 @@
     <script nomodule src="https://cdn.jsdelivr.net/npm/ionicons/dist/ionicons/ionicons.js" defer></script>
     <script src="ui.js" defer></script>
 
-    <!-- Yritys avata modal heti sivulle tultaessa-->
+    <!-- Avaus modal bootstrap-->
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
             integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
             crossorigin="anonymous"></script>
@@ -31,6 +31,7 @@
             $("#simpleModal").modal('show');
         }
     </script>
+    <!-- Avaus modal loppuu -->
     <link rel="stylesheet" href="styles.css">
 
 </head>
@@ -48,15 +49,24 @@
                 Olet porollaan lentävä pukki.<br>Tänään on 23. joulukuuta, ja menet mielenosoitukseen lentokoneilla
                 lentämistä vastaan!<br>Porosi tehtävä on kakata lentokoneiden päälle. Lennätte kuitenkin niin korkealla,
                 ettette näe, millä lentokentillä on lentokoneita. Toivotaan parasta!<br>Jokaisesta koneesta, jonka
-                päälle porosi kakkaa onnistuneesti, saat yhden lahjan, joita myöhemmin jakaa lapsille.
+                päälle porosi kakkaa onnistuneesti, saat yhden lahjan, joita myöhemmin jakaa lapsille.<br>
+                <br><b>Mutta ensin, kerro nimesi!</b>
             </div>
+            <!-- yritys siirtää pelaajan nimi tietokantaan -->
+            <div class="name">
+                <form type="form" class="name_form" action=```` method="POST">
+                    <input type="text" name="name" value="{{request.form.name}}">
+                    <button type="submit" class="name_button">Tallenna pelaajanimesi</button>
+                </form>
+            </div>
+            <!-- yritys siirtää pelaajan nimi tietokantaan -->
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Aloita peli</button>
             </div>
         </div>
     </div>
 </div>
-<!-- avaus modal -->
+<!-- avaus modal loppuu-->
 <body>
 
 <div class="container">

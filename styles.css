@@ -12,6 +12,10 @@ html {
   color: #521356;
 }
 
+.name {
+  text-align: center;
+}
+
 body {
   padding: 5rem;
   width: 70%;

@@ -1,5 +1,6 @@
 'use strict';
 
+//pelikartan rakennus
 const map = L.map('map').setView([55.97, 12.83], 4);
 let airportMarkers = null;
 
@@ -88,4 +89,17 @@ function initialisoi() {
 }
 
 initialisoi();
+
+//avaus modalin pelaajanimen tallennus tietokantaan yritys
+//var pelaaja_nimi = document.getElementsByClassName(name)
+
+//addEventListener("click", () =>{
+//  pelaaja_nimi.ajax({
+//  type: "POST",
+//  url: "~/paivitettavat_muuttujat.py",
+//  data: param({text})
+//}).done(nimea_pelaaja())
+//})
+
+
 
