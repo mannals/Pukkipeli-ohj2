@@ -29,7 +29,31 @@ var layer = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
 
 map.addLayer(layer);
 
+var ourCustomControl = L.Control.extend({
+  options: {
+    position: 'topright'
+    //control position - allowed: 'topleft', 'topright', 'bottomleft', 'bottomright'
+  },
 
+  onAdd: function (map) {
+    var container = L.DomUtil.create('div', 'leaflet-bar leaflet-control leaflet-control-custom');
+    container.style.backgroundColor = 'white';
+    container.style.width = '64px';
+    container.style.height = '64px';
+    container.innerHTML = '<img src="img/poop.png" height="64px" style="padding: 1em;">'
+    container.style.margin = '10px';
+    container.style.alignContent = 'center';
+    container.style.cursor = 'pointer';
+
+    container.onclick = function(){
+      kakkaa();
+    }
+    return container;
+  },
+
+});
+
+map.addControl(new ourCustomControl());
 
 async function noudaLentsidata() {
   console.log('Noudetaan lentokenttädataa');
@@ -130,4 +154,3 @@ async function initialisoi() {
 }
 
 initialisoi();
-

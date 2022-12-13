@@ -106,10 +106,12 @@ ul {
   background-color: white;
   padding: 1em;
   margin: 1em;
-  border: #88a9b2 3px solid;
+  border: #88a9b2 2px solid;
   border-radius: 2em;
-  z-index: 99999;
-  position: relative;
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  z-index: 400;
 }
 
 #kakkaNappain:hover {
