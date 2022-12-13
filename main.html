@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>P*skaa ja paketteja</title>
+    <meta id="meta" name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css"
+          integrity="sha256-kLaT2GOSpHechhsozzB+flnD+zUyjE2LlfWPgU04xyI=" crossorigin=""/>
+    <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"
+            integrity="sha256-WBkoXOwTeyKclOHuWtc+i2uENFpDZ9YPdf5Hf+D7ewM=" crossorigin=""></script>
+    <script type="module" src="https://cdn.jsdelivr.net/npm/ionicons/dist/ionicons/ionicons.esm.js" defer></script>
+    <script nomodule src="https://cdn.jsdelivr.net/npm/ionicons/dist/ionicons/ionicons.js" defer></script>
+    <script src="ui.js" defer></script>
+
+    <!-- Avaus modal bootstrap-->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+            integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+            crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous"/>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+            integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+            crossorigin="anonymous"></script>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet-easybutton@2/src/easy-button.css">
+    <script src="https://cdn.jsdelivr.net/npm/leaflet-easybutton@2/src/easy-button.js"></script>
+    <script type="text/javascript">
+      window.onload = function () {
+        OpenBootstrapPopup();
+      };
+
+      function OpenBootstrapPopup() {
+        $("#simpleModal").modal('show');
+      }
+    </script>
+    <!-- Avaus modal loppuu -->
+    <link rel="stylesheet" href="styles.css">
+
+</head>
+<!-- avaus modal -->
+<div id="simpleModal" class="modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Tervetuloa pukin apuriksi!</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                Olet porollaan lentävä pukki.<br>Tänään on 23. joulukuuta, ja menet mielenosoitukseen lentokoneilla
+                lentämistä vastaan!<br>Porosi tehtävä on kakata lentokoneiden päälle. Lennätte kuitenkin niin korkealla,
+                ettette näe, millä lentokentillä on lentokoneita. Toivotaan parasta!<br>Jokaisesta koneesta, jonka
+                päälle porosi kakkaa onnistuneesti, saat yhden lahjan, joita myöhemmin jakaa lapsille.<br>
+                <br><b>Mutta ensin, kerro nimesi!</b>
+            </div>
+            <!-- yritys siirtää pelaajan nimi tietokantaan -->
+            <div class="name">
+                <form type="form" class="name_form" action=```` method="POST">
+                    <input id="pelaajanNimi" type="text" name="name" value="{{request.form.name}}">
+                    <button id="sendStart" type="submit" class="name_button" data-dismiss="modal">Aloita peli</button>
+                </form>
+            </div>
+            <!-- yritys siirtää pelaajan nimi tietokantaan -->
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+<!-- avaus modal loppuu-->
+<body>
+
+<div class="container">
+    <header class="page-header">
+        <h1 class="page-title">
+            <img id="paska" src="img/feces.png">
+            <p>&nbsp;Paskaa&nbsp;&&nbsp;Paketteja&nbsp;</p><img id="paketti" src="img/giftbox.png">
+        </h1>
+    </header>
+</div>
+
+<div id="banner">
+    <p>Raahaa porosi lentokentille!<br>Liikut kentällä raahaamalla poroikoniasia haluamaasi paikkaan<br>
+        Saat tietoja lentokentästä laittamalla hiiren sen ylle.</p>
+</div>
+
+<div id="gamecontent">
+    <div id="map"></div>
+    <div id="countdown">
+        <div id="countdown-number">30</div>
+        <button id="start">Aloita</button>
+    </div>
+</div>
+
+</body>
+
+</html>
