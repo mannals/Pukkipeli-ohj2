@@ -5,6 +5,7 @@ const map = L.map('map').setView([55.97, 12.83], 4);
 const pelaajanNimi = document.querySelector('#pelaajanNimi').value
 let poroLat = 66.56167;
 let poroLng = 25.83083;
+let sijainti = "Rovaniemi Airport";
 var poroIkoni = L.icon({
     iconUrl: 'img/pukkiporo.png',
 

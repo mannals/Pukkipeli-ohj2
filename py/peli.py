@@ -12,6 +12,12 @@ class Pelaaja:
         self.lng = lng
         self.sijaintinimi = sijaintinimi
 
+        self.kursori.execute(
+            f"INSERT INTO peli(nimi, latitude, longitude, sijaintinimi) VALUES ({self.nimi}, {self.lat}, {self.lng}, {self.sijaintinimi})"
+        )
+
+
+
 
 
 

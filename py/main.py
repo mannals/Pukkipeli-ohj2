@@ -1,14 +1,13 @@
 from airport import Lentokentta
+import peli
 
 import json
 from flask import Flask, Response, request
 from flask_cors import CORS
 from dotenv import load_dotenv
 from database import Tietokanta
-import mysql.connector
-import webbrowser
 
-new = 2
+
 load_dotenv()
 
 lentopeli = Tietokanta()
@@ -45,7 +44,9 @@ def porospeksit():
     pelaaja = args.get("pelaaja")
     lat = args.get("lat")
     lng = args.get("lng")
-    json_data = {"pelaaja": pelaaja, "latitude": lat, "longitude": lng}
+    loc = args.get("sijainti")
+    json_data = {"pelaaja": pelaaja, "latitude": lat, "longitude": lng, "sijainti": loc}
+    poro = peli.Pelaaja(pelaaja, lat, lng, loc)
     return json_data
 
 if __name__ == '__main__':
