@@ -4,6 +4,20 @@ const map = L.map('map').setView([55.97, 12.83], 4);
 let poroLat = 66.56167
 let poroLng = 25.83083
 var airportMarkers = null;
+var poroIkoni = L.icon({
+    iconUrl: 'img/pukkiporo.png',
+
+    iconSize:     [32, 32], // size of the icon
+    iconAnchor:   [16, 16], // point of the icon which will correspond to marker's location
+  });
+var poroOptions = {
+   title: "Pukkiporomarkkeri",
+   clickable: true,
+   draggable: false,
+   icon: poroIkoni,
+   riseOnHover: true,
+   riseOffset: 250
+  }
 
 var layer = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
   maxZoom: 19,
@@ -46,7 +60,10 @@ async function tuoKarttaan(poro) {
     marker.on('click', function(e) {
       let lat = e.latlng.lat;
       let lng = e.latlng.lng;
-      let uusporo = liikutaPoroa(lat, lng, poro)
+      if (poro != undefined) {
+        map.removeLayer(poro);
+        poro = L.marker([lat, lng], poroOptions).addTo(map);
+      }
     })
     markerList.push(marker);
   })
@@ -70,27 +87,9 @@ function kentilleLiikkuminen(ryhma) {
   })
 }
 
-function spawnaaPoro(lat, lng) {
-  const poroIkoni = L.icon({
-    iconUrl: 'img/pukkiporo.png',
-
-    iconSize:     [32, 32], // size of the icon
-    iconAnchor:   [16, 16], // point of the icon which will correspond to marker's location
-  });
-  let poroOptions = {
-   title: "Pukkiporomarkkeri",
-   clickable: true,
-   draggable: false,
-   icon: poroIkoni,
-   riseOnHover: true,
-   riseOffset: 250
-  }
-  var poro = L.marker([lat, lng], poroOptions);
+function spawnaaPoro(lat, lng, options) {
+  var poro = L.marker([lat, lng], options);
   return poro;
-}
-
-function poistaPoro() {
-  
 }
 
 function liikutaPoroa(lat, lng, poro) {
@@ -116,7 +115,7 @@ function liikutaPoroa(lat, lng, poro) {
 
 
 async function initialisoi() {
-  var pukkiporo = spawnaaPoro(poroLat, poroLng);
+  var pukkiporo = spawnaaPoro(poroLat, poroLng, poroOptions);
   map.addLayer(pukkiporo);
   await tuoKarttaan(pukkiporo);
 
