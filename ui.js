@@ -1,9 +1,9 @@
 'use strict';
 
 const map = L.map('map').setView([55.97, 12.83], 4);
-let poroLat = 66.56167
-let poroLng = 25.83083
-var airportMarkers = null;
+
+let poroLat = 66.56167;
+let poroLng = 25.83083;
 var poroIkoni = L.icon({
     iconUrl: 'img/pukkiporo.png',
 
@@ -19,12 +19,45 @@ var poroOptions = {
    riseOffset: 250
   }
 
+var airportMarkers = null;
+
 var layer = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
   maxZoom: 19,
-  attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-})
+  attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+  draggable: false
+});
 
 map.addLayer(layer);
+
+var ourCustomControl = L.Control.extend({
+  options: {
+    position: 'topright'
+    //control position - allowed: 'topleft', 'topright', 'bottomleft', 'bottomright'
+  },
+
+  onAdd: function (map) {
+    var container = L.DomUtil.create('button');
+    container.type = "button";
+    container.innerHTML = '<img src="img/poop.png" height="100%" width="100%" style="padding: 1em;">'
+    container.style.width = '64px';
+    container.style.height = '64px';
+    container.style.alignContent = 'center';
+    container.style.border = '#88a9b2 2px solid';
+    container.style.borderRadius = '2em';
+
+    container.style.margin = '10px';
+    container.style.alignContent = 'center';
+    container.style.cursor = 'pointer';
+
+    container.onclick = function(){
+      kakkaa();
+    }
+    return container;
+  },
+
+});
+
+map.addControl(new ourCustomControl());
 
 async function noudaLentsidata() {
   console.log('Noudetaan lentokenttädataa');
@@ -64,7 +97,7 @@ async function tuoKarttaan(poro) {
         map.removeLayer(poro);
         poro = L.marker([lat, lng], poroOptions).addTo(map);
       }
-    })
+    });
     markerList.push(marker);
   })
 
@@ -73,8 +106,11 @@ async function tuoKarttaan(poro) {
   map.addLayer(airportMarkers);
 }
 
-function layerOrder() {
-  global
+let kakkamaarat = 0;
+
+function kakkaa() {
+  kakkamaarat++;
+  console.log(kakkamaarat);
 }
 
 
@@ -122,4 +158,3 @@ async function initialisoi() {
 }
 
 initialisoi();
-

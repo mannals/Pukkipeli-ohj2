@@ -12,6 +12,10 @@ html {
   color: #521356;
 }
 
+.name {
+  text-align: center;
+}
+
 body {
   padding: 5rem;
   width: 70%;
@@ -100,4 +104,20 @@ ul {
     height: 60em;
     width: 100%;
     margin: auto;
+}
+
+#kakkaNappain {
+  background-color: white;
+  padding: 1em;
+  margin: 1em;
+  border: #88a9b2 2px solid;
+  border-radius: 2em;
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  z-index: 400;
+}
+
+#kakkaNappain:hover {
+  cursor: pointer;
 }
