@@ -29,7 +29,7 @@ var layer = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
 
 map.addLayer(layer);
 
-var ourCustomControl = L.Control.extend({
+var kakkanappain = L.Control.extend({
   options: {
     position: 'topright'
     //control position - allowed: 'topleft', 'topright', 'bottomleft', 'bottomright'
@@ -57,7 +57,10 @@ var ourCustomControl = L.Control.extend({
 
 });
 
-map.addControl(new ourCustomControl());
+map.addControl(new kakkanappain());
+
+var aikaaaJaljella = 30;
+var aikaPysahtynyt = false;
 
 async function noudaLentsidata() {
   console.log('Noudetaan lentokenttädataa');
@@ -97,6 +100,7 @@ async function tuoKarttaan(poro) {
         map.removeLayer(poro);
         poro = L.marker([lat, lng], poroOptions).addTo(map);
       }
+      // fetch (osoite/kakattu?icao=${lentsiJson[lentokentta].icao}&peli_id=${pelin id})
     });
     markerList.push(marker);
   })
