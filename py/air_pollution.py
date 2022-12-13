@@ -20,6 +20,6 @@ for values in lentsikirjaParse.values():
     index = int(vastaus['list'][0]['main']['aqi'])
 
     def luo_aqi_index():
-        sql = f'UPDATE airport SET air_pollution = {index} WHERE latitude_deg = "{lat}" AND longitude_deg = "{lon}";'
+        sql = f'UPDATE airport SET air_pollution = {index} WHERE latitude_deg = {lat} AND longitude_deg = {lon};'
         kursori = yhteys.cursor()
         kursori.execute(sql)
