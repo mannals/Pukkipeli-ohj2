@@ -1,7 +1,7 @@
 'use strict';
 
 const map = L.map('map').setView([55.97, 12.83], 4);
-const airportMarkers = L.featureGroup().addTo(map);
+let airportMarkers = null;
 
 var layer = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
   maxZoom: 19,
@@ -18,16 +18,39 @@ async function noudaLentsidata() {
     return await noukittava.json();
   } catch (error) {
     console.log(error.message);
-  } finally {                                         // finally = this is executed anyway, whether the execution was successful or not
+  } finally {
     console.log('asynchronous load complete');
   }
 }
 
 async function tuoKarttaan() {
-  const lentsiJson = await noudaLentsidata();
+  let lentsiJson = await noudaLentsidata();
+  let markerList = [];
+
   Object.keys(lentsiJson).forEach(lentokentta => {
-    var marker = L.marker([lentsiJson[lentokentta].latitude, lentsiJson[lentokentta].longitude]).addTo(map);
-    marker.bindPopup(`<div id="infoPopup"><b>${lentokentta}</b><br><button id="lentonappain" type="button" style="width: 100%;">Lennä</button></div>`).openPopup();
+    var marker = L.marker([lentsiJson[lentokentta].latitude, lentsiJson[lentokentta].longitude]);
+    marker.bindPopup(`<div id="infoPopup"><b>${lentokentta}</b></div>`);
+    marker.on('mouseover', function(e) {
+      this.openPopup();
+    });
+    marker.on('mouseout', function(e) {
+      this.closePopup();
+    });
+    markerList.push(marker);
+  })
+
+  let airportGroup = L.layerGroup(markerList);
+  map.addLayer(airportGroup);
+}
+
+
+
+function kentilleLiikkuminen(ryhma) {
+  Object.keys(ryhma).forEach(markkeri => {
+    markkeri.on('click', function(e) {
+      var latLng = e.latlng;
+      liikutaPoroa(latLng[0], latlng[1]);
+    })
   })
 }
 
@@ -45,6 +68,20 @@ function spawnaaPoro(lat, lng) {
   map.addLayer(poro);
 }
 
+function liikutaPoroa(lat, lng) {
+  map.removeLayer(poro);
+  var poroIkoni = L.icon({
+    iconUrl: 'img/pukkiporo.png',
+
+    iconSize:     [32, 32], // size of the icon
+    iconAnchor:   [16, 16], // point of the icon which will correspond to marker's location
+  });
+  let poro = L.marker([lat, lng], {icon: poroIkoni}, {draggable:'true', autopan: 'true'});
+  map.addLayer(poro);
+
+}
+
+
 function initialisoi() {
   tuoKarttaan();
   spawnaaPoro(poroLat, poroLng);
@@ -52,13 +89,3 @@ function initialisoi() {
 
 initialisoi();
 
-//modal heti ladatessa, EI TOIMI
-var startModal = new bootstrap.Modal(document.getElementById('startModal'))
-startModal.show();
-//muuttujat about dialogin sulkemiselle
-const dialog = document.getElementById('startModal')
-const closeDialog = document.getElementById('span')
-//sulkee about dialogin
-closeDialog.addEventListener('click',() => {
-  dialog.close();
-})

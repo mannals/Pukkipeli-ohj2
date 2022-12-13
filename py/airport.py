@@ -1,13 +1,15 @@
 from database import Tietokanta
+import requests
 
 lentopeli = Tietokanta()
 yhteys = lentopeli.ota_yhteys()
 
 class Lentokentta:
-    def __init__(self, nimi="nimeton", lat=0, long=0):
+    def __init__(self, nimi="nimeton", lat=0, long=0, lentokenttadata={}):
         self.nimi = nimi
         self.lat = lat
         self.long = long
+        self.lentokenttadata = lentokenttadata
 
     def luo_lentokenttalista(self):
         sql = 'SELECT name, latitude_deg, longitude_deg FROM airport;'
@@ -23,4 +25,26 @@ class Lentokentta:
             lentsikirja['longitude'] = float(kentta[2])
             isompi_lentsikirja[kentta[0]] = lentsikirja
 
-        return isompi_lentsikirja
+        self.lentokenttadata = isompi_lentsikirja
+
+    def lentsi_ja_indeksi(self):
+
+        for lentsi in self.lentokenttadata:
+            lat = self.lentokenttadata[lentsi]['latitude']
+            lon = self.lentokenttadata[lentsi]['longitude']
+
+            url = f'http://api.openweathermap.org/data/2.5/air_pollution?lat={lat}&lon={lon}&appid=1eaca74789ff332a01d1c16c5e890e3f'
+
+            vastaus = requests.get(url).json()
+
+            indeksi = int(vastaus['list'][0]['main']['aqi'])
+
+            self.lentokenttadata[lentsi]['air pollution index'] = indeksi
+
+            print(lentsi)
+            print(indeksi)
+
+            sql = f'UPDATE airport SET air_pollution = {indeksi} WHERE name = "{lentsi}";'
+            kursori = yhteys.cursor()
+            kursori.execute(sql)
+
