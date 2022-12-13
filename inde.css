@@ -1,6 +1,8 @@
 html {
   background-image: url("img/pinesL.jpg");
   background-repeat: no-repeat;
+  background-size: 100vw 100vh;
+
 }
 
 dialog {
@@ -75,3 +77,10 @@ ul {
 .button:hover {
   transform: scale(1.1);
 }
+
+iframe {
+  height: 500px;
+  width: 700px;
+}
+
+

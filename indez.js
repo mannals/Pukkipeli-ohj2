@@ -11,6 +11,19 @@ closeDialogHS.addEventListener('click', () => {
   dialogHS.close();
 })
 
+// iframe highscorelle
+cont.addEventListener('click', () => {
+  const iframe = dialog.appendChild(document.querySelector('#graph'));
+  console.log(iframe.src)
+  dialog.showModal();
+})
+// muuttujat iframelle
+const closeDialog = document.querySelector('span');
+const dialog = document.querySelector('dialog');
+//sulkee dialogin
+closeDialog.addEventListener('click', () => {
+    dialog.close();
+})
 
 //About eli lisätietoja modal
 const buttonA = document.getElementById('A')
@@ -25,3 +38,4 @@ const closeDialogA = document.getElementById('spanA')
 closeDialogA.addEventListener('click',() => {
   dialogA.close();
 })
+
