@@ -41,6 +41,18 @@ class Pelaaja:
         self.kursori.execute(f"SELECT id FROM peli WHERE name={nimi}")
         tulos = self.kursori.fetchone()
 
+    def kakka_confirmed(self, lat, lng):
+        sql = f"UPDATE airport SET onko_kakka = 1 WHERE latitude_deg = {lat} AND longitude_deg = {lng};"
+        self.kursori.execute(sql)
+
+    def kakka_check(self, lat, lng):
+        sql = f"SELECT onko_kakka FROM airport WHERE latitude_deg = {lat} AND longitude_deg = {lng};"
+        self.kursori.execute(sql)
+        tulos = self.kursori.fetchone()
+
+        return tulos[0]
+
+
     def saakoKakkapisteita(self):
         sql = f"SELECT air_pollution FROM airport WHERE latitude_deg = {self.lat} AND longitude_deg = {self.lng};"
         self.kursori.execute(sql)

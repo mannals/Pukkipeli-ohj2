@@ -54,9 +54,9 @@ def kakkaus():
     args = request.args
     lat = args.get("latitude")
     lng = args.get("longitude")
-    kakka = peli.Pelaaja.kakkasijainnin_nimi(lat, lng)
+    peli.Pelaaja.kakka_check(lat, lng)
     json_data = {"latitude": lat, "longitude": lng}
-    return kakka
+    return json_data
 
 
 if __name__ == '__main__':
