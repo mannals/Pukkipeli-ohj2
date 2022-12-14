@@ -6,6 +6,7 @@ let kakatutKentat = [];
 let poroLat = 66.56167;
 let poroLng = 25.83083;
 let sijainti = "Rovaniemi Airport";
+let globalid;
 const poroIkoni = L.icon({
     iconUrl: 'img/pukkiporo.png',
 
@@ -29,6 +30,10 @@ aloitaPeli.addEventListener('click', async () => {
   const aloitusSpeksit = await fetch(
       `http://127.0.0.1:3000/porospeksit?pelaaja=${pelaajanNimi}&lat=${poroLat}&lng=${poroLng}&sijainti=${sijainti}`
   )
+  const tiedot = await aloitusSpeksit.json()
+  globalid = tiedot.id
+
+
 })
 
 var layer = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -60,7 +65,7 @@ var kakkanappain = L.Control.extend({
     container.style.cursor = 'pointer';
 
     container.onclick = function(){
-      kakkaa(poroLat, poroLng);
+      kakkaa(globalid, poroLat, poroLng);
     }
     return container;
   },
@@ -123,9 +128,9 @@ async function tuoKarttaan(poro) {
 
 let kakkamaarat = 0;
 
-async function kakkaa(lat, lng) {
+async function kakkaa(id, lat, lng) {
   kakkamaarat++;
-  let kakkapaikka = await fetch(`http://127.0.0.1:3000/`)
+  let kakkapaikka = await fetch(`http://127.0.0.1:3000/kakkaus?id=${id}`)
   console.log(`Olet kakannut ${kakkamaarat} kertaa.`);
 }
 

@@ -45,18 +45,26 @@ def porospeksit():
     lat = args.get("lat")
     lng = args.get("lng")
     loc = args.get("sijainti")
-    json_data = {"pelaaja": pelaaja, "latitude": lat, "longitude": lng, "sijainti": loc}
-    poro = peli.Pelaaja(pelaaja, lat, lng, loc)
+    # json_data = {"pelaaja": pelaaja, "latitude": lat, "longitude": lng, "sijainti": loc}
+    json_data = peli.Pelaaja(pelaaja, lat, lng, loc)
     return json_data
 
 @app.route('/kakkaus')
 def kakkaus():
     args = request.args
+    id = args.get("id")
     lat = args.get("latitude")
     lng = args.get("longitude")
-    peli.Pelaaja.kakka_check(lat, lng)
-    json_data = {"latitude": lat, "longitude": lng}
+    onkokakka = peli.kakka_check(id, lat, lng)
+    if onkokakka == 0:
+        kakkaa = peli.kakka_confirmed(id, lat, lng)
+    else:
+        print("Ei voi kakata")
+
+
+    json_data = {"id": id, "latitude": lat, "longitude": lng}
     return json_data
+
 
 
 if __name__ == '__main__':
