@@ -31,7 +31,7 @@ aloitaPeli.addEventListener('click', async () => {
 
   const aloitusSpeksit = await fetch(
       `http://127.0.0.1:3000/porospeksit?pelaaja=${pelaajanNimi}&lat=${poroLat}&lng=${poroLng}&sijainti=${sijainti}`
-  )//MISTÄ TULEE POROSPEKSIT? t. tytti
+  )
   //luodaan tiedot muuttuja, missä json-tiedostona lähtötilanne
   const tiedot = await aloitusSpeksit.json()
   globalid = tiedot.id

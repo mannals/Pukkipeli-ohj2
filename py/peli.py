@@ -3,6 +3,7 @@ from database import Tietokanta
 tk = Tietokanta()
 kursori = tk.yhteys.cursor()
 
+#pelaajan mukaan liitetyt ominaisuudet
 class Pelaaja:
     def __init__(self, nimi, lat, lng, sijaintinimi, kakat=0, lahjat=0):
         self.kursori = tk.yhteys.cursor()

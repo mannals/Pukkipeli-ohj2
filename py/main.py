@@ -38,6 +38,7 @@ def lentokentat(lista):
         http_vastaus = Response(response=json_vastaus, status=404, mimetype="application/json")
         return http_vastaus
 
+#tarvitaan, että voidaan määritellä pelaajan ominaisuudet ui.js
 @app.route('/porospeksit')
 def porospeksit():
     args = request.args

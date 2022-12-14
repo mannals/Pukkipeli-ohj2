@@ -27,6 +27,7 @@ class Lentokentta:
 
         self.lentokenttadata = isompi_lentsikirja
 
+#haetaan indeksi arvo apista ja lisätään lentokantaan
     def lentsi_ja_indeksi(self):
 
         for lentsi in self.lentokenttadata:
