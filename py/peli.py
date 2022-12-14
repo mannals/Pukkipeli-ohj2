@@ -13,7 +13,7 @@ class Pelaaja:
         self.sijaintinimi = sijaintinimi
 
         self.kursori.execute(
-            f"INSERT INTO peli(nimi, latitude, longitude, sijaintinimi) VALUES ({self.nimi}, {self.lat}, {self.lng}, {self.sijaintinimi})"
+            f"INSERT INTO peli(nimi, latitude, longitude, sijainti) VALUES ({self.nimi}, {self.lat}, {self.lng}, {self.sijaintinimi})"
         )
 
     def kakkasijainnin_nimi(self, lat, lng):
@@ -40,6 +40,23 @@ class Pelaaja:
     def game_id(self, nimi):
         self.kursori.execute(f"SELECT id FROM peli WHERE name={nimi}")
         tulos = self.kursori.fetchone()
+
+    def saakoKakkapisteita(self):
+        sql = f"SELECT air_pollution FROM airport WHERE latitude_deg = {self.lat} AND longitude_deg = {self.lng};"
+        self.kursori.execute(sql)
+        tulos = self.kursori.fetchone()
+
+        if tulos[0] == 1 or tulos[0] == 2:
+            jtulos = {
+                "saakoKakkapisteita": True
+            }
+            return jtulos
+        elif tulos[0] == 3 or tulos[0] == 4:
+            jtulos = {
+                "saakoKakkapisteita": False
+            }
+            return jtulos
+
 
 
 

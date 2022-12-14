@@ -45,3 +45,4 @@ class Lentokentta:
             kursori = yhteys.cursor()
             kursori.execute(sql)
 
+

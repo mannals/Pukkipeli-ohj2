@@ -52,13 +52,11 @@ def porospeksit():
 @app.route('/kakkaus')
 def kakkaus():
     args = request.args
-    monesko = args.get("kakkamaara")
     lat = args.get("latitude")
     lng = args.get("longitude")
     kakka = peli.Pelaaja.kakkasijainnin_nimi(lat, lng)
     json_data = {"latitude": lat, "longitude": lng}
     return kakka
-
 
 
 if __name__ == '__main__':
