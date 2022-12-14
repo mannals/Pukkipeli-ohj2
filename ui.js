@@ -1,11 +1,12 @@
 'use strict';
-
+//leafletiin perustuvaa kartan luontia
 const map = L.map('map').setView([55.97, 12.83], 4);
 
 let kakatutKentat = [];
 let poroLat = 66.56167;
 let poroLng = 25.83083;
 let sijainti = "Rovaniemi Airport";
+//MIKSI EMME MÄÄRITTELE MUUTTUJAA GLOBALID t.tytti
 let globalid;
 const poroIkoni = L.icon({
     iconUrl: 'img/pukkiporo.png',
@@ -22,6 +23,7 @@ const poroOptions = {
    riseOffset: 250
   }
 
+  //kenttämerkit ja aloitus "Aloita peli"-napin tapahtumat nimen annon jälkeen
 let airportMarkers;
 const aloitaPeli = document.querySelector('#sendStart');
 aloitaPeli.addEventListener('click', async () => {
@@ -29,21 +31,24 @@ aloitaPeli.addEventListener('click', async () => {
 
   const aloitusSpeksit = await fetch(
       `http://127.0.0.1:3000/porospeksit?pelaaja=${pelaajanNimi}&lat=${poroLat}&lng=${poroLng}&sijainti=${sijainti}`
-  )
+  )//MISTÄ TULEE POROSPEKSIT? t. tytti
+  //luodaan tiedot muuttuja, missä json-tiedostona lähtötilanne
   const tiedot = await aloitusSpeksit.json()
   globalid = tiedot.id
 
 
 })
-
+//pelikentän luonti, missä kentästä tehdään ei raahattava(?) ja zoomauksen maksimi on määrätty(?)
 var layer = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
   maxZoom: 19,
   attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
   draggable: false
 });
 
+//lisätään itse html:ään kartta/pelikenttä
 map.addLayer(layer);
 
+//luodaan kakkanäppäin, joka ei returnaa mitään arvoa (void)
 var kakkanappain = L.Control.extend({
   options: {
     position: 'topright'
@@ -72,8 +77,10 @@ var kakkanappain = L.Control.extend({
 
 });
 
+//lisätään leaflet karttaan kakkanäppäin
 map.addControl(new kakkanappain());
 
+//noudetaan lentokenttä lista MISTÄ
 async function noudaLentsidata() {
   console.log('Noudetaan lentokenttädataa');
   try {
@@ -87,6 +94,7 @@ async function noudaLentsidata() {
   }
 }
 
+//funktio, jolla poroikonin saa siirrettyä lentokentältä toiselle (jotka löytyy lentokenttä listalta(ylempi funktio))
 async function tuoKarttaan(poro) {
   let lentsiJson = await noudaLentsidata();
   let markerList = [];
@@ -96,6 +104,8 @@ async function tuoKarttaan(poro) {
    draggable: false
   }
 
+  //viitataan lentokenttälistan "avain"-arvoon nimi (joka on jsonifyitu) ja luodaan "infotaulu", joka aukee, kun
+  //hiiri menee lentokentän ylle
   Object.keys(lentsiJson).forEach(lentokentta => {
     var marker = L.marker([lentsiJson[lentokentta].latitude, lentsiJson[lentokentta].longitude], markerOptions);
     marker.bindPopup(`<div id="infoPopup"><b>${lentokentta}</b></div>`);
@@ -110,10 +120,12 @@ async function tuoKarttaan(poro) {
       poroLng = e.latlng.lng;
       sijainti = lentsiJson[lentokentta].name;
       if (poro != undefined) {
+        //poistetaan ikoni kentiltä, joista siirrytään pois
         map.removeLayer(poro);
         poro = spawnaaPoro(poroLat, poroLng, poroOptions, sijainti);
         map.addLayer(poro);
       }
+      //tähän tulee funktio, joka pitää kirjaa kentistä, joihin on kakattu (+onko osuttu?)
       let uudetSpeksit = await fetch(
       `http://127.0.0.1:3000/porospeksit?pelaaja=${pelaajanNimi}&lat=${poroLat}&lng=${poroLng}&sijainti=${sijainti}`)
       // fetch (osoite/kakattu?icao=${lentsiJson[lentokentta].icao}&peli_id=${pelin id})
@@ -121,11 +133,13 @@ async function tuoKarttaan(poro) {
     markerList.push(marker);
   })
 
+  //lisätään karttaan layer, missä näkyy markkerit (tähän ehto, miten ikoni näkyy markkerien kanssa?)
   var airportGroup = L.layerGroup(markerList);
   airportMarkers = airportGroup;
   map.addLayer(airportMarkers);
 }
 
+//kakkamäärä turha? ei pelin sujuvuuden kannalta tärkeä
 let kakkamaarat = 0;
 
 async function kakkaa(id, lat, lng) {
@@ -134,6 +148,7 @@ async function kakkaa(id, lat, lng) {
   console.log(`Olet kakannut ${kakkamaarat} kertaa.`);
 }
 
+//luodaan funktio, jolla voidaan siirtää poroikonia (options on ulkonäkö ja liikutettavuus)
 function spawnaaPoro(lat, lng, options, sij="") {
   let poro = L.marker([lat, lng], options);
   if (sij != "") {
@@ -142,6 +157,7 @@ function spawnaaPoro(lat, lng, options, sij="") {
   return poro;
 }
 
+//laitetaan poroikoni näkyviin
 async function initialisoi() {
   var pukkiporo = spawnaaPoro(poroLat, poroLng, poroOptions);
   map.addLayer(pukkiporo);
