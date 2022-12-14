@@ -49,6 +49,18 @@ def porospeksit():
     poro = peli.Pelaaja(pelaaja, lat, lng, loc)
     return json_data
 
+@app.route('/kakkaus')
+def kakkaus():
+    args = request.args
+    monesko = args.get("kakkamaara")
+    lat = args.get("latitude")
+    lng = args.get("longitude")
+    kakka = peli.Pelaaja.kakkasijainnin_nimi(lat, lng)
+    json_data = {"latitude": lat, "longitude": lng}
+    return kakka
+
+
+
 if __name__ == '__main__':
     app.run(use_reloader=True, host='127.0.0.1', port=3000)
 

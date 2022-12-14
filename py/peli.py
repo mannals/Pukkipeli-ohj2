@@ -16,6 +16,31 @@ class Pelaaja:
             f"INSERT INTO peli(nimi, latitude, longitude, sijaintinimi) VALUES ({self.nimi}, {self.lat}, {self.lng}, {self.sijaintinimi})"
         )
 
+    def kakkasijainnin_nimi(self, lat, lng):
+        self.lat = float(lat)
+        self.lng = float(lng)
+
+        sql = f"SELECT name FROM airport WHERE latitude_deg = {self.lat} AND longitude_deg = {self.lng};"
+        self.kursori.execute(sql)
+        tulos = self.kursori.fetchone()
+
+        if tulos.rowcount > 0:
+            jtulos = {
+                'paikan_nimi': tulos[0]
+            }
+
+        else:
+            jtulos = {
+                "viesti": "Virheellinen yhteenlaskettava",
+                "status": 400
+            }
+
+        return jtulos
+
+    def game_id(self, nimi):
+        self.kursori.execute(f"SELECT id FROM peli WHERE name={nimi}")
+        tulos = self.kursori.fetchone()
+
 
 
 

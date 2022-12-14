@@ -26,7 +26,7 @@ aloitaPeli.addEventListener('click', async () => {
   const pelaajanNimi = document.querySelector('#pelaajanNimi').value;
 
   const aloitusSpeksit = await fetch(
-      `http://127.0.0.1:3000/porospeksit?pelaaja=${pelaajanNimi}&lat=${poroLat}&lng=${poroLng}`
+      `http://127.0.0.1:3000/porospeksit?pelaaja=${pelaajanNimi}&lat=${poroLat}&lng=${poroLng}&sijainti=${sijainti}`
   )
 })
 
@@ -59,7 +59,7 @@ var kakkanappain = L.Control.extend({
     container.style.cursor = 'pointer';
 
     container.onclick = function(){
-      kakkaa();
+      kakkaa(poroLat, poroLng);
     }
     return container;
   },
@@ -102,13 +102,14 @@ async function tuoKarttaan(poro) {
     marker.on('click', async function(e) {
       poroLat = e.latlng.lat;
       poroLng = e.latlng.lng;
+      sijainti = lentsiJson[lentokentta].name;
       if (poro != undefined) {
         map.removeLayer(poro);
-        poro = spawnaaPoro(poroLat, poroLng, poroOptions);
+        poro = spawnaaPoro(poroLat, poroLng, poroOptions, sijainti);
         map.addLayer(poro);
       }
       let uudetSpeksit = await fetch(
-      `http://127.0.0.1:3000/porospeksit?pelaaja=${pelaajanNimi}&lat=${poroLat}&lng=${poroLng}`)
+      `http://127.0.0.1:3000/porospeksit?pelaaja=${pelaajanNimi}&lat=${poroLat}&lng=${poroLng}&sijainti=${sijainti}`)
       // fetch (osoite/kakattu?icao=${lentsiJson[lentokentta].icao}&peli_id=${pelin id})
     });
     markerList.push(marker);
@@ -121,45 +122,18 @@ async function tuoKarttaan(poro) {
 
 let kakkamaarat = 0;
 
-function kakkaa() {
+async function kakkaa(lat, lng) {
   kakkamaarat++;
-  console.log(kakkamaarat);
+  let kakkapaikka = await fetch(`http://127.0.0.1:3000/`)
+  console.log(`Olet kakannut ${kakkamaarat} kertaa.`);
 }
 
-
-function kentilleLiikkuminen(ryhma) {
-  Object.keys(ryhma).forEach(markkeri => {
-    markkeri.on('click', function(e) {
-      var latLng = e.latlng;
-      liikutaPoroa(latLng[0], latlng[1]);
-    })
-  })
-}
-
-function spawnaaPoro(lat, lng, options) {
+function spawnaaPoro(lat, lng, options, sij="") {
   let poro = L.marker([lat, lng], options);
-  return poro;
-}
+  if (sij != "") {
 
-function liikutaPoroa(lat, lng, poro) {
-  map.removeLayer(poro);
-  const poroIkoni = L.icon({
-    iconUrl: 'img/pukkiporo.png',
-
-    iconSize:     [32, 32], // size of the icon
-    iconAnchor:   [16, 16], // point of the icon which will correspond to marker's location
-  });
-  let poroOptions = {
-   title: "Pukkiporomarkkeri",
-   clickable: true,
-   draggable: false,
-   icon: poroIkoni,
-   riseOnHover: true,
-   riseOffset: 250
   }
-  var poro = L.marker([lat, lng], poroOptions);
-  map.addLayer(poro);
-
+  return poro;
 }
 
 async function initialisoi() {
