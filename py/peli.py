@@ -6,21 +6,24 @@ kursori = tk.yhteys.cursor()
 #pelaajan mukaan liitetyt ominaisuudet
 class Pelaaja:
     def __init__(self, nimi, lat, lng, sijaintinimi, kakat=0, lahjat=0):
-        self.kursori = tk.yhteys.cursor()
+        self.kursori = tk.yhteys.cursor(dictionary=True)
         self.nimi = nimi
         self.kakat = kakat
         self.lahjat = lahjat
         self.lat = lat
         self.lng = lng
         self.sijaintinimi = sijaintinimi
-
+#turha?
         self.kursori.execute("SELECT MAX(id) FROM peli")
         self.id = self.kursori.fetchone()
 
         self.kursori.execute(
-            f"INSERT INTO peli(nimi, latitude, longitude, sijainti) VALUES ({self.nimi}, {self.lat}, {self.lng}, {self.sijaintinimi})"
+            f"INSERT INTO peli(name, sijainti) VALUES ('{self.nimi}', '{self.sijaintinimi}')"
         )
-        return self
+
+        self.id = self.kursori.lastrowid
+
+
 
 
 
@@ -44,6 +47,14 @@ class Pelaaja:
             }
 
         return jtulos
+
+
+    def pelitiedot(self):
+        sql = f"SELECT * from peli WHERE id = {self.id};"
+        print(sql)
+        self.kursori.execute(sql)
+        tulos = self.kursori.fetchone()
+        return tulos
 
 
 

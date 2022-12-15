@@ -1,4 +1,5 @@
 from airport import Lentokentta
+from peli import Pelaaja
 import peli
 
 import json
@@ -13,6 +14,8 @@ load_dotenv()
 lentopeli = Tietokanta()
 yhteys = lentopeli.ota_yhteys()
 
+
+#hidastaa käynnistystä?
 lentsi = Lentokentta()
 lentsi.luo_lentokenttalista()
 lentsi.lentsi_ja_indeksi()
@@ -49,8 +52,11 @@ def porospeksit():
     lng = args.get("lng")
     loc = args.get("sijainti")
     # json_data = {"pelaaja": pelaaja, "latitude": lat, "longitude": lng, "sijainti": loc}
-    json_data = peli.Pelaaja(pelaaja, lat, lng, loc)
-    return json_data
+    peliinfot = Pelaaja(pelaaja, lat, lng, loc)
+
+    json_data = peliinfot.pelitiedot()
+    print(json_data)
+    return json.dumps(json_data)
 
 @app.route('/kakkaus')
 def kakkaus():
