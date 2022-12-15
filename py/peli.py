@@ -6,14 +6,14 @@ kursori = tk.yhteys.cursor()
 #pelaajan mukaan liitetyt ominaisuudet
 class Pelaaja:
     def __init__(self, nimi, lat, lng, sijaintinimi, kakat=0, lahjat=0):
-        self.kursori = tk.yhteys.cursor(dictionary=True)
+        self.kursori = tk.yhteys.cursor(dictionary=True) #luo automaattisesti listan
         self.nimi = nimi
         self.kakat = kakat
         self.lahjat = lahjat
         self.lat = lat
         self.lng = lng
         self.sijaintinimi = sijaintinimi
-#turha?
+#turha? koska id on autoincrementoitu, ottaa automaattisesti isoimman t. ilkka
         self.kursori.execute("SELECT MAX(id) FROM peli")
         self.id = self.kursori.fetchone()
 

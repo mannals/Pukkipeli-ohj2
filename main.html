@@ -11,41 +11,15 @@
     <script type="module" src="https://cdn.jsdelivr.net/npm/ionicons/dist/ionicons/ionicons.esm.js" defer></script>
     <script nomodule src="https://cdn.jsdelivr.net/npm/ionicons/dist/ionicons/ionicons.js" defer></script>
     <script src="ui.js" defer></script>
-
-    <!-- Avaus modal bootstrap-->
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
-            integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
-            crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
-          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous"/>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
-            integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
-            crossorigin="anonymous"></script>
-
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet-easybutton@2/src/easy-button.css">
-    <script src="https://cdn.jsdelivr.net/npm/leaflet-easybutton@2/src/easy-button.js"></script>
-    <script type="text/javascript">
-      window.onload = function () {
-        OpenBootstrapPopup();
-      };
-
-      function OpenBootstrapPopup() {
-        $("#simpleModal").modal('show');
-      }
-    </script>
-    <!-- Avaus modal loppuu -->
     <link rel="stylesheet" href="styles.css">
 
 </head>
 <!-- avaus modal -->
-<div id="simpleModal" class="modal" tabindex="-1" role="dialog">
+<dialog id="alkuModal" class="modal">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title">Tervetuloa pukin apuriksi!</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
             </div>
             <div class="modal-body">
                 Olet porollaan lentävä pukki.<br>Tänään on 23. joulukuuta, ja menet mielenosoitukseen lentokoneilla
@@ -54,19 +28,20 @@
                 päälle porosi kakkaa onnistuneesti, saat yhden lahjan, joita myöhemmin jakaa lapsille.<br>
                 <br><b>Mutta ensin kerro nimesi!</b>
             </div>
-            <!-- yritys siirtää pelaajan nimi tietokantaan -->
+            <!-- siirtää pelaajan nimen tietokantaan -->
             <div class="name">
-                <form type="form" class="name_form" action=```` method="POST">
+                <form class="name_form" action=```` method="GET">
                     <input id="pelaajanNimi" type="text" name="name">
-                    <button id="sendStart" type="submit" class="name_button" data-dismiss="modal">Aloita peli</button>
+                    <button id="sendStart" type="button">Aloita peli
+                    </button>
                 </form>
             </div>
-            <!-- yritys siirtää pelaajan nimi tietokantaan loppuu-->
+            <!-- siirtää pelaajan nimen tietokantaan loppuu-->
             <div class="modal-footer">
             </div>
         </div>
     </div>
-</div>
+</dialog>
 <!-- avaus modal loppuu-->
 <body>
 

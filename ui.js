@@ -167,3 +167,14 @@ async function initialisoi() {
 initialisoi()
 
 
+//Avaus modal
+window.addEventListener('load', event => {
+  Adialog.showModal();
+})
+const Adialog = document.getElementById('alkuModal')
+//about dialogin sulkeminen
+const closeAvausDialog = document.getElementById('sendStart')
+//sulkee about dialogin
+closeAvausDialog.addEventListener('click',() => {
+  Adialog.close();
+})

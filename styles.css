@@ -5,6 +5,8 @@ html {
 
 .modal-header {
   color: #521356;
+  background-color: rgba(169, 169, 169, 0.41);
+  text-align: center;
 }
 
 .modal-body {

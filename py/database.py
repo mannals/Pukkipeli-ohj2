@@ -17,6 +17,7 @@ class Tietokanta:
     def ota_yhteys(self):
         return self.yhteys
 
+#täysin turha funktio?
     def nimea_pelaaja(self, nimi: str):
         #sql = "INSERT INTO peli VALUES ('"+ id +"'," + kakatut_kentat
         #alla olevaan sql koodiin muunnos +=, eikä tarvii insert into-lausetta
