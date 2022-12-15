@@ -22,6 +22,8 @@ lentsit = lentsi.lentokenttadata
 app = Flask(__name__)
 cors = CORS(app)
 app.config['CORS_HEADERS'] = 'Content-Type'
+
+#luodaan flask-kirjastoa muuttujista, joita voidaan käyttää pelin pääkoodissa
 @app.route('/lentokentat/<lista>')
 def lentokentat(lista):
     try:

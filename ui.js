@@ -32,7 +32,7 @@ aloitaPeli.addEventListener('click', async () => {
   const aloitusSpeksit = await fetch(
       `http://127.0.0.1:3000/porospeksit?pelaaja=${pelaajanNimi}&lat=${poroLat}&lng=${poroLng}&sijainti=${sijainti}`
   )
-  //luodaan tiedot muuttuja, missä json-tiedostona lähtötilanne
+  //luodaan tiedot-muuttuja, missä json-tiedostona lähtötilanne
   const tiedot = await aloitusSpeksit.json()
   globalid = tiedot.id
 
@@ -80,7 +80,7 @@ var kakkanappain = L.Control.extend({
 //lisätään leaflet karttaan kakkanäppäin
 map.addControl(new kakkanappain());
 
-//noudetaan lentokenttä lista MISTÄ
+//noudetaan lentokenttä lista
 async function noudaLentsidata() {
   console.log('Noudetaan lentokenttädataa');
   try {
