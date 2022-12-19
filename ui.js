@@ -48,7 +48,7 @@ var layer = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
 //lisätään itse html:ään kartta/pelikenttä
 map.addLayer(layer);
 
-//luodaan kakkanäppäin, joka ei returnaa mitään arvoa (void)
+//luodaan kakkanäppäin, joka ei returnaa mitään arvoa (void), sis. css muotoilun
 var kakkanappain = L.Control.extend({
   options: {
     position: 'topright'
