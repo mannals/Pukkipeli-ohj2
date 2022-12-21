@@ -54,7 +54,6 @@ class Pelaaja:
     def kakka_check(self):
         kursori = tk.yhteys.cursor(dictionary=True, buffered=True)
         sql = f"SELECT * FROM goal_reached WHERE game_id = {self.id} AND airport_name = '{self.sijaintinimi}';"
-        print("moro", sql)
         kursori.execute(sql)
         tulos = kursori.fetchall()
         print(tulos)
