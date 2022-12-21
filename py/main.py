@@ -16,10 +16,7 @@ yhteys = lentopeli.ota_yhteys()
 
 
 #hidastaa käynnistystä?
-lentsi = Lentokentta()
-lentsi.luo_lentokenttalista()
-lentsi.lentsi_ja_indeksi()
-lentsit = lentsi.lentokenttadata
+
 
 
 app = Flask(__name__)
@@ -27,12 +24,14 @@ cors = CORS(app)
 app.config['CORS_HEADERS'] = 'Content-Type'
 
 #luodaan flask-kirjastoa muuttujista, joita voidaan käyttää pelin pääkoodissa
-@app.route('/lentokentat/<lista>')
-def lentokentat(lista):
+@app.route('/lentokentat')
+def lentokentat():
     try:
-        global lentsit
-        lista = lentsit
-        lista_json = json.dumps(lista)
+        lentsi = Lentokentta()
+        lentsi.luo_lentokenttalista()
+        lentsi.lentsi_ja_indeksi()
+        lentsit = lentsi.lentokenttadata
+        lista_json = json.dumps(lentsit)
         return lista_json
     except ValueError:
         vastaus = {
@@ -46,32 +45,38 @@ def lentokentat(lista):
 #tarvitaan, että voidaan määritellä pelaajan ominaisuudet ui.js
 @app.route('/porospeksit')
 def porospeksit():
+    #aloitapeli-muuttuja
     args = request.args
     pelaaja = args.get("pelaaja")
-    lat = args.get("lat")
-    lng = args.get("lng")
     loc = args.get("sijainti")
     # json_data = {"pelaaja": pelaaja, "latitude": lat, "longitude": lng, "sijainti": loc}
-    peliinfot = Pelaaja(pelaaja, lat, lng, loc)
+    peliinfot = Pelaaja(0, loc, False, 0, pelaaja)
 
     json_data = peliinfot.pelitiedot()
     print(json_data)
     return json.dumps(json_data)
 
+
+@app.route('/liikkuminen')
+def liikkuminen():
+    args = request.args
+    peli_id = args.get("peli_id")
+    loc = args.get("kohde")
+    # json_data = {"pelaaja": pelaaja, "latitude": lat, "longitude": lng, "sijainti": loc}
+    peliinfot = Pelaaja(peli_id, loc)
+
+    json_data = peliinfot.pelitiedot()
+    print(json_data)
+    return json.dumps(json_data)
+
+
 @app.route('/kakkaus')
 def kakkaus():
     args = request.args
-    id = args.get("id")
-    lat = args.get("latitude")
-    lng = args.get("longitude")
-    onkokakka = peli.kakka_check(id, lat, lng)
-    if onkokakka == 0:
-        kakkaa = peli.kakka_confirmed(id, lat, lng)
-    else:
-        print("Ei voi kakata")
-
-
-    json_data = {"id": id, "latitude": lat, "longitude": lng}
+    peli_id = args.get("id")
+    aqi = args.get("aqi")
+    peliinfot = Pelaaja(peli_id, "", True, aqi)
+    json_data = peliinfot.pelitiedot()
     return json_data
 
 
