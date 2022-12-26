@@ -66,5 +66,5 @@ class Pelaaja:
     def saakoKakkapisteita(self, aqi):
         if aqi == 1 or aqi == 2:
             return True
-        elif aqi == 3 or aqi == 4:
+        elif aqi == 3 or aqi == 4 or aqi == 5:
             return False
