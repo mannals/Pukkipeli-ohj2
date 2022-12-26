@@ -2,7 +2,6 @@ from database import Tietokanta
 
 tk = Tietokanta()
 
-
 # pelaajan mukaan liitetyt ominaisuudet
 class Pelaaja:
     def __init__(self, id, sijaintinimi="", kakkaa=False, aqi = 0, nimi=""):
@@ -11,15 +10,14 @@ class Pelaaja:
         self.kakkaa = kakkaa
         self.aqi = aqi
         self.sijaintinimi = sijaintinimi
-        # turha? koska id on autoincrementoitu, ottaa automaattisesti isoimman t. ilkka
-        # self.kursori.execute("SELECT MAX(id) FROM peli")
-        # self.id = self.kursori.fetchone()
         kursori = tk.yhteys.cursor(dictionary=True, buffered=True)
+        # jos pelaaja on uusi
         if self.id == 0:
             kursori.execute(
                 f"INSERT INTO peli (name, sijainti) VALUES ('{self.nimi}', '{self.sijaintinimi}')"
             )
             self.id = kursori.lastrowid
+        # jos pelaajan id on olemassa, päivitetään pelaajan sijainti
         else:
             if self.sijaintinimi !="":
                 kursori.execute(
@@ -51,6 +49,7 @@ class Pelaaja:
             return True
         return False
 
+    # Tsekkaa, onko jo kakattu kentälle (ettei voi uudestaan kakata)
     def kakka_check(self):
         kursori = tk.yhteys.cursor(dictionary=True, buffered=True)
         sql = f"SELECT * FROM goal_reached WHERE game_id = {self.id} AND airport_name = '{self.sijaintinimi}';"
@@ -62,9 +61,20 @@ class Pelaaja:
         else:
             return True
 
-
+    # Pelaaja saa pisteitä, jos kentän aqi 2 tai pienempi
     def saakoKakkapisteita(self, aqi):
         if aqi == 1 or aqi == 2:
             return True
         elif aqi == 3 or aqi == 4 or aqi == 5:
             return False
+
+    # Ylempi funktio tarkemmin?
+    #def saakoKakkapisteita(self, aqi):
+    #    kursori = tk.yhteys.cursor(dictionary=True, buffered=True)
+     #   sql = f"SELECT air_pollution FROM airport WHERE airport_name = '{self.sijaintinimi}';"
+     #   kursori.execute(sql)
+      #  tulos = kursori.fetchall()
+      #  if tulos == 1 or tulos == 2:
+      #      return True
+      #  elif tulos == 3 or tulos == 4 or tulos == 5:
+        #    return False
