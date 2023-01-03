@@ -23,12 +23,24 @@ const poroOptions = {
     riseOffset: 250
 }
 
+async function setInterval(timeleft){
+    timeleft -= 1;
+    if(timeleft <= 0){
+        document.getElementById("#countdown").innerHTML = "<p>Aika loppu!</p>";
+    } else {
+        document.getElementById("#countdown").innerHTML = `<p>${timeleft}s jäljellä</p>`;
+    }
+    }
+
+
+
+
 //kenttämerkit ja aloitus "Aloita peli"-napin tapahtumat nimen annon jälkeen
 let airportMarkers;
 const aloitaPeli = document.querySelector('#sendStart');
 aloitaPeli.addEventListener('click', async () => {
     const pelaajanNimi = document.querySelector('#pelaajanNimi').value;
-
+    console.log(setInterval(31));
     const aloitusSpeksit = await fetch(
         `http://127.0.0.1:3000/porospeksit?pelaaja=${pelaajanNimi}&sijainti=${sijainti}`
     )
@@ -38,6 +50,8 @@ aloitaPeli.addEventListener('click', async () => {
 
 
 })
+
+
 //pelikentän luonti, missä kentästä tehdään ei raahattava(?) ja zoomauksen maksimi on määrätty(?)
 var layer = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
     maxZoom: 19,

@@ -1,13 +1,14 @@
 from database import Tietokanta
-
+import time
 tk = Tietokanta()
 
 # pelaajan mukaan liitetyt ominaisuudet
 class Pelaaja:
-    def __init__(self, id, sijaintinimi="", kakkaa=False, aqi = 0, nimi=""):
+    def __init__(self, id, sijaintinimi="", kakkaa=False, lahja=False, aqi = 0, nimi=""):
         self.id = id
         self.nimi = nimi
         self.kakkaa = kakkaa
+        self.lahja = lahja
         self.aqi = aqi
         self.sijaintinimi = sijaintinimi
         kursori = tk.yhteys.cursor(dictionary=True, buffered=True)
@@ -28,6 +29,11 @@ class Pelaaja:
             self.sijaintinimi = tiedot['sijainti']
             self.kakka_confirmed()
 
+        if self.lahja:
+            tiedot= self.pelitiedot()
+            self.sijaintinimi = tiedot['sijainti']
+            self.lahja_confirmed()
+
     def pelitiedot(self):
         kursori = tk.yhteys.cursor(dictionary=True, buffered=True)
         sql = f"SELECT * from peli WHERE id = {self.id};"
@@ -42,7 +48,8 @@ class Pelaaja:
         if self.kakka_check():
             sql = f"INSERT INTO goal_reached (game_id, airport_name) VALUES ({self.id}, '{self.sijaintinimi}');"
             kursori.execute(sql)
-            if self.saakoKakkapisteita(self.aqi):
+            saakopisteita = self.saakoKakkapisteita(self.aqi)
+            if saakopisteita:
                 kursori = tk.yhteys.cursor(dictionary=True, buffered=True)
                 sql = f"UPDATE peli SET kakatut_kentat = kakatut_kentat+1 WHERE id={self.id};"
                 kursori.execute(sql)
@@ -55,26 +62,56 @@ class Pelaaja:
         sql = f"SELECT * FROM goal_reached WHERE game_id = {self.id} AND airport_name = '{self.sijaintinimi}';"
         kursori.execute(sql)
         tulos = kursori.fetchall()
-        print(tulos)
         if len(tulos) > 0:
             return False
         else:
             return True
 
-    # Pelaaja saa pisteitä, jos kentän aqi 2 tai pienempi
+    # Ylempi funktio tarkemmin?
     def saakoKakkapisteita(self, aqi):
-        if aqi == 1 or aqi == 2:
+        kursori = tk.yhteys.cursor(dictionary=True, buffered=True)
+        sql = f"SELECT air_pollution FROM airport WHERE name = '{self.sijaintinimi}';"
+        kursori.execute(sql)
+        tulos = kursori.fetchone()
+        aqiArvo = int(tulos['air_pollution'])
+        if aqiArvo == 1 or aqiArvo == 2:
             return True
-        elif aqi == 3 or aqi == 4 or aqi == 5:
+        elif aqiArvo == 3 or aqiArvo == 4 or aqiArvo == 5:
             return False
 
-    # Ylempi funktio tarkemmin?
-    #def saakoKakkapisteita(self, aqi):
-    #    kursori = tk.yhteys.cursor(dictionary=True, buffered=True)
-     #   sql = f"SELECT air_pollution FROM airport WHERE airport_name = '{self.sijaintinimi}';"
-     #   kursori.execute(sql)
-      #  tulos = kursori.fetchall()
-      #  if tulos == 1 or tulos == 2:
-      #      return True
-      #  elif tulos == 3 or tulos == 4 or tulos == 5:
-        #    return False
+#lahja osio
+    def lahja_confirmed(self):
+        kursori = tk.yhteys.cursor(dictionary=True, buffered=True)
+        if self.lahja_check():
+            sql = f"INSERT INTO goal_reached (game_id, airport_name) VALUES ({self.id}, '{self.sijaintinimi}');"
+            kursori.execute(sql)
+            saakopisteita = self.saakoLahjapisteita(self.aqi)
+            if saakopisteita:
+                kursori = tk.yhteys.cursor(dictionary=True, buffered=True)
+                sql = f"UPDATE peli SET lahjat_annettu = lahjat_annettu+1 WHERE id={self.id};"
+                kursori.execute(sql)
+            return True
+        return False
+
+    # Tsekkaa, onko jo lahja kentälle (ettei voi uudestaan lahjaa)
+    def lahja_check(self):
+        kursori = tk.yhteys.cursor(dictionary=True, buffered=True)
+        sql = f"SELECT * FROM goal_reached WHERE game_id = {self.id} AND airport_name = '{self.sijaintinimi}';"
+        kursori.execute(sql)
+        tulos = kursori.fetchall()
+        if len(tulos) > 0:
+            return False
+        else:
+            return True
+
+    # Onnistuuko kakkaus
+    def saakoLahjapisteita(self, aqi):
+        kursori = tk.yhteys.cursor(dictionary=True, buffered=True)
+        sql = f"SELECT air_pollution FROM airport WHERE name = '{self.sijaintinimi}';"
+        kursori.execute(sql)
+        tulos = kursori.fetchone()
+        aqiArvo = int(tulos['air_pollution'])
+        if aqiArvo == 1 or aqiArvo == 2:
+            return False
+        elif aqiArvo == 3 or aqiArvo == 4 or aqiArvo == 5:
+            return True
