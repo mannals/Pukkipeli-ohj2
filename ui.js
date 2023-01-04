@@ -23,15 +23,8 @@ const poroOptions = {
     riseOffset: 250
 }
 
-async function setInterval(timeleft){
-    timeleft -= 1;
-    if(timeleft <= 0){
-        document.getElementById("#countdown").innerHTML = "<p>Aika loppu!</p>";
-    } else {
-        document.getElementById("#countdown").innerHTML = `<p>${timeleft}s jäljellä</p>`;
-    }
-    }
-
+let aikaa_jaljella = document.querySelector("#aikaa-jaljella"),
+         	 secondsLeft = 30
 
 
 
@@ -40,13 +33,25 @@ let airportMarkers;
 const aloitaPeli = document.querySelector('#sendStart');
 aloitaPeli.addEventListener('click', async () => {
     const pelaajanNimi = document.querySelector('#pelaajanNimi').value;
-    console.log(setInterval(31));
     const aloitusSpeksit = await fetch(
         `http://127.0.0.1:3000/porospeksit?pelaaja=${pelaajanNimi}&sijainti=${sijainti}`
     )
     //luodaan tiedot-muuttuja, missä json-tiedostona lähtötilanne
     const tiedot = await aloitusSpeksit.json()
+    // sain ajastimen näkyy ja toimii jeeeeee t. anna
+    const downloadTimer = setInterval(
+    () => {
+        if (secondsLeft <= 0) clearInterval(downloadTimer)
+        aikaa_jaljella.value = secondsLeft
+        aikaa_jaljella.textContent = secondsLeft
+        secondsLeft -= 1
+    },
+1000)
     globalid = tiedot.id
+
+    if (document.querySelector('#aikaa-jaljella').innerHTML == "0") {
+        // tälleen kai lähtis liikkeelle joku resetointitoiminnallisuus? t. anna
+    }
 
 
 })
