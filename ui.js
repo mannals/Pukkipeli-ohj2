@@ -63,6 +63,18 @@ var layer = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
 //lisätään itse html:ään kartta/pelikenttä
 map.addLayer(layer);
 
+let globaltiedot;
+
+async function jakomaara() {
+    let kakkamaara = await fetch(`http://127.0.0.1:3000/jakomaara?id=${globalid}`)
+    const tiedot = await kakkamaara.json()
+    console.log('seuraavana jakomaara objekti')
+    globaltiedot = tiedot['kakatut_kentat']
+    console.log(globaltiedot)
+    //return jakomaara
+}
+
+
 //luodaan kakkanäppäin, joka ei returnaa mitään arvoa (void), sis. css muotoilun
 var kakkanappain = L.Control.extend({
     options: {
@@ -88,6 +100,8 @@ var kakkanappain = L.Control.extend({
 
             if (document.querySelector('#aikaa-jaljella').innerHTML === "0") {
                 container.disabled = true;
+                jakomaara();
+                console.log(globaltiedot)
             } else {
                 container.disabled = false;
                 kakkaa(globalid, poroLat, poroLng);
@@ -211,11 +225,7 @@ async function anna_lahja() {
 
 //luodaan funktio, jolla voidaan siirtää poroikonia (options on ulkonäkö ja liikutettavuus)
 function spawnaaPoro(lat, lng, options, sij = "") {
-    let poro = L.marker([lat, lng], options);
-    if (sij != "") {
-
-    }
-    return poro;
+    return L.marker([lat, lng], options);
 }
 
 //laitetaan poroikoni näkyviin
@@ -239,3 +249,10 @@ const closeAvausDialog = document.getElementById('sendStart')
 closeAvausDialog.addEventListener('click', () => {
     Adialog.close();
 })
+
+//loppumodal
+window.addEventListener('options', capture => {
+    Ldialog.showModal();
+})
+const Ldialog = document.getElementById('lopetusModal')
+// dialogin sulkeminen

@@ -4,13 +4,14 @@ tk = Tietokanta()
 
 # pelaajan mukaan liitetyt ominaisuudet
 class Pelaaja:
-    def __init__(self, id, sijaintinimi="", kakkaa=False, lahja=False, aqi = 0, nimi=""):
+    def __init__(self, id, sijaintinimi="", kakkaa=False, lahja=False, aqi = 0, nimi="", jakomaara = 0):
         self.id = id
         self.nimi = nimi
         self.kakkaa = kakkaa
         self.lahja = lahja
         self.aqi = aqi
         self.sijaintinimi = sijaintinimi
+        self.jakomaara = jakomaara
         kursori = tk.yhteys.cursor(dictionary=True, buffered=True)
         # jos pelaaja on uusi
         if self.id == 0:
@@ -75,6 +76,7 @@ class Pelaaja:
         tulos = kursori.fetchone()
         aqiArvo = int(tulos['air_pollution'])
         if aqiArvo == 1 or aqiArvo == 2:
+            self.jakomaara += 1
             return True
         elif aqiArvo == 3 or aqiArvo == 4 or aqiArvo == 5:
             return False
@@ -112,6 +114,10 @@ class Pelaaja:
         tulos = kursori.fetchone()
         aqiArvo = int(tulos['air_pollution'])
         if aqiArvo == 1 or aqiArvo == 2:
+            self.jakomaara -= 1
             return False
         elif aqiArvo == 3 or aqiArvo == 4 or aqiArvo == 5:
+            self.jakomaara -= 1
             return True
+
+

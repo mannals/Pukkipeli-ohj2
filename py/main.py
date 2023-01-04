@@ -88,6 +88,13 @@ def lahjaus():
     json_data = peliinfot.pelitiedot()
     return json_data
 
+@app.route('/jakomaara')
+def jakomaara():
+    args = request.args
+    peli_id = args.get("id")
+    peliinfot = Pelaaja(peli_id, "", False, False, jakomaara)
+    json_data = peliinfot.pelitiedot()
+    return json_data
 
 if __name__ == '__main__':
     app.run(use_reloader=True, host='127.0.0.1', port=3000)
