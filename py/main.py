@@ -47,10 +47,10 @@ def lentokentat():
 def porospeksit():
     #aloitapeli-muuttuja
     args = request.args
-    pelaaja = args.get("pelaaja")
+    playerr = args.get("pelaaja")
     loc = args.get("sijainti")
     # json_data = {"pelaaja": pelaaja, "latitude": lat, "longitude": lng, "sijainti": loc}
-    peliinfot = Pelaaja(0, loc, False, 0, pelaaja)
+    peliinfot = Pelaaja(0, loc, False, False, 0, playerr)
 
     json_data = peliinfot.pelitiedot()
     print(json_data)
@@ -75,10 +75,18 @@ def kakkaus():
     args = request.args
     peli_id = args.get("id")
     aqi = args.get("aqi")
-    peliinfot = Pelaaja(peli_id, "", True, aqi)
+    peliinfot = Pelaaja(peli_id, "", True, False, aqi)
     json_data = peliinfot.pelitiedot()
     return json_data
 
+@app.route('/lahjaus')
+def lahjaus():
+    args = request.args
+    peli_id = args.get("id")
+    aqi = args.get("aqi")
+    peliinfot = Pelaaja(peli_id, "", False, True, aqi)
+    json_data = peliinfot.pelitiedot()
+    return json_data
 
 
 if __name__ == '__main__':

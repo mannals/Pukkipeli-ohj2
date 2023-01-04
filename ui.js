@@ -49,10 +49,6 @@ aloitaPeli.addEventListener('click', async () => {
 1000)
     globalid = tiedot.id
 
-    if (document.querySelector('#aikaa-jaljella').innerHTML == "0") {
-        // tälleen kai lähtis liikkeelle joku resetointitoiminnallisuus? t. anna
-    }
-
 
 })
 
@@ -89,15 +85,56 @@ var kakkanappain = L.Control.extend({
         container.style.cursor = 'pointer';
 
         container.onclick = function () {
-            kakkaa(globalid, poroLat, poroLng);
+
+            if (document.querySelector('#aikaa-jaljella').innerHTML === "0") {
+                container.disabled = true;
+            } else {
+                container.disabled = false;
+                kakkaa(globalid, poroLat, poroLng);
+            }
         }
         return container;
     },
 
 });
 
+var lahjanappain = L.Control.extend({
+    options: {
+        position: 'topright'
+        //control position - allowed: 'topleft', 'topright', 'bottomleft', 'bottomright'
+    },
+
+    onAdd: function (map) {
+        var containerL = L.DomUtil.create('button');
+        containerL.type = "button";
+        containerL.innerHTML = '<img src="img/gift.png" height="80%" width="80%";>'
+        containerL.style.width = '64px';
+        containerL.style.height = '64px';
+        containerL.style.alignContent = 'center';
+        containerL.style.border = '#88a9b2 2px solid';
+        containerL.style.borderRadius = '2em';
+
+        containerL.style.margin = '10px';
+        containerL.style.alignContent = 'center';
+        containerL.style.cursor = 'pointer';
+        containerL.disabled = false;
+
+        containerL.onclick = function () {
+            if (document.querySelector('#aikaa-jaljella').innerHTML === "0") {
+                anna_lahja(globalid, poroLat, poroLng);
+            }
+        }
+
+        return containerL;
+    },
+
+});
+
 //lisätään leaflet karttaan kakkanäppäin
 map.addControl(new kakkanappain());
+map.addControl(new lahjanappain());
+
+
 
 //noudetaan lentokenttä lista
 async function noudaLentsidata() {
@@ -163,6 +200,12 @@ async function tuoKarttaan(poro) {
 async function kakkaa() {
     let kakkapaikka = await fetch(`http://127.0.0.1:3000/kakkaus?id=${globalid}&aqi=${aqi}`)
     const tiedot = await kakkapaikka.json()
+    console.log(tiedot)
+}
+
+async function anna_lahja() {
+    let lahjapaikka = await fetch(`http://127.0.0.1:3000/lahjaus?id=${globalid}&aqi=${aqi}`)
+    const tiedot = await lahjapaikka.json()
     console.log(tiedot)
 }
 
