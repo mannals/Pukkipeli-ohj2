@@ -26,7 +26,18 @@ const poroOptions = {
 let aikaa_jaljella = document.querySelector("#aikaa-jaljella"),
          	 secondsLeft = 30
 
+function info() {
+    document.querySelector("#kakkaMaara").onload=function() {return jakomaara();}
+}
 
+async function jakomaara() {
+    let kakkamaara = await fetch(`http://127.0.0.1:3000/jakomaara?id=${globalid}`)
+    const tiedot = await kakkamaara.json()
+    globaltiedot = tiedot['kakatut_kentat']
+    document.createTextNode(globaltiedot);
+}
+
+info()
 
 //kenttämerkit ja aloitus "Aloita peli"-napin tapahtumat nimen annon jälkeen
 let airportMarkers;
@@ -48,10 +59,7 @@ aloitaPeli.addEventListener('click', async () => {
     },
 1000)
     globalid = tiedot.id
-
-
 })
-
 
 //pelikentän luonti, missä kentästä tehdään ei raahattava(?) ja zoomauksen maksimi on määrätty(?)
 var layer = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
