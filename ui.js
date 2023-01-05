@@ -5,7 +5,6 @@ const map = L.map('map').setView([55.97, 12.83], 4);
 let poroLat = 66.56167;
 let poroLng = 25.83083;
 let sijainti = "Rovaniemi Airport";
-//MIKSI EMME MÄÄRITTELE MUUTTUJAA GLOBALID t.tytti
 let globalid;
 let aqi = 0;
 const poroIkoni = L.icon({
@@ -20,7 +19,9 @@ const poroOptions = {
     draggable: false,
     icon: poroIkoni,
     riseOnHover: true,
-    riseOffset: 250
+    riseOffset: 250,
+    zIndexOffset: 1000,
+    optimized: false,
 }
 
 let aikaa_jaljella = document.querySelector("#aikaa-jaljella"),
@@ -67,7 +68,12 @@ async function jakomaara() {
     console.log('seuraavana jakomaara objekti')
     globaltiedot = tiedot['kakatut_kentat']
     document.querySelector('#kakkaMaara').innerHTML=globaltiedot;
-    //return jakomaara
+    let saatuPaska = document.querySelector('#kakkaMaara').innerHTML;
+    console.log(saatuPaska);
+}
+
+function vaihda_vaihe(){
+    window.alert("vaihde vaihtuu toveri!");
 }
 
 
@@ -97,7 +103,7 @@ var kakkanappain = L.Control.extend({
             if (document.querySelector('#aikaa-jaljella').innerHTML === "0") {
                 container.disabled = true;
                 jakomaara();
-                console.log(globaltiedot)
+                vaihda_vaihe();
             } else {
                 container.disabled = false;
                 kakkaa(globalid, poroLat, poroLng);
@@ -132,6 +138,20 @@ var lahjanappain = L.Control.extend({
         containerL.onclick = function () {
             if (document.querySelector('#aikaa-jaljella').innerHTML === "0") {
                 anna_lahja(globalid, poroLat, poroLng);
+                // async function maarienHaku() {
+                //     let kakkamaara = await fetch(`http://127.0.0.1:3000/jakomaara?id=${globalid}`)
+                //     const tiedot = await kakkamaara.json()
+                //     globaltiedot = tiedot['kakatut_kentat']
+                //     console.log(globaltiedot);
+                // }
+                // maarienHaku();
+
+                //let lahja_maara = jakomaara()
+                //console.log(lahja_maara)
+                //lahja_maara -= 1
+               // if (lahja_maara === 0) {
+                //    kaikki_loppuu()
+               // }
             }
         }
 
@@ -143,8 +163,6 @@ var lahjanappain = L.Control.extend({
 //lisätään leaflet karttaan kakkanäppäin
 map.addControl(new kakkanappain());
 map.addControl(new lahjanappain());
-
-
 
 //noudetaan lentokenttä lista
 async function noudaLentsidata() {
@@ -245,6 +263,10 @@ const closeAvausDialog = document.getElementById('sendStart')
 closeAvausDialog.addEventListener('click', () => {
     Adialog.close();
 })
+
+function kaikki_loppuu() {
+    window.alert("KAIKKI LOPPUU TOVERI");
+}
 
 //loppumodal
 window.addEventListener('options', capture => {
