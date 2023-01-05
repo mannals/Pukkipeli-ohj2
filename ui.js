@@ -26,18 +26,6 @@ const poroOptions = {
 let aikaa_jaljella = document.querySelector("#aikaa-jaljella"),
          	 secondsLeft = 30
 
-function info() {
-    document.querySelector("#kakkaMaara").onload=function() {return jakomaara();}
-}
-
-async function jakomaara() {
-    let kakkamaara = await fetch(`http://127.0.0.1:3000/jakomaara?id=${globalid}`)
-    const tiedot = await kakkamaara.json()
-    globaltiedot = tiedot['kakatut_kentat']
-    document.createTextNode(globaltiedot);
-}
-
-info()
 
 //kenttämerkit ja aloitus "Aloita peli"-napin tapahtumat nimen annon jälkeen
 let airportMarkers;
@@ -78,7 +66,7 @@ async function jakomaara() {
     const tiedot = await kakkamaara.json()
     console.log('seuraavana jakomaara objekti')
     globaltiedot = tiedot['kakatut_kentat']
-    console.log(globaltiedot)
+    document.querySelector('#kakkaMaara').innerHTML=globaltiedot;
     //return jakomaara
 }
 
