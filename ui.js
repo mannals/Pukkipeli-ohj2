@@ -62,13 +62,39 @@ map.addLayer(layer);
 
 let globaltiedot;
 
+//hyvä loppu
 function kaikki_loppuuHYVIN() {
-    window.alert("GREAT JOBE VELI JEEEEE");
+    HyvaLoppuDialog.showModal();
+}
+const HyvaLoppuDialog = document.getElementById('HyvaLoppuModal')
+// dialogin sulkeminen
+const SuljeHyvaLoppuDialog = document.getElementById('HyvaRestart')
+SuljeHyvaLoppuDialog.addEventListener('click', () => {
+    HyvaLoppuDialog.close();
+})
+
+//huono loppu
+function kaikki_loppuuHUONOSTI() {
+    HuonoLoppuDialog.showModal();
+}
+const HuonoLoppuDialog = document.getElementById('HuonoLoppuModal')
+// dialogin sulkeminen
+const SuljeHuonoLoppuDialog = document.getElementById('HuonoRestart')
+SuljeHuonoLoppuDialog.addEventListener('click', () => {
+    HuonoLoppuDialog.close();
+})
+
+//vaihe vaihtuu
+function vaihda_vaihe() {
+    VaihaVaihdeDialog.showModal();
 }
 
-function kaikki_loppuuHUONOSTI() {
-    window.alert("U SUUUUUUCK MEE KOTIIS");
-}
+let VaihaVaihdeDialog = document.getElementById('VaiheVaihtuu')
+const SuljeVVDialog = document.getElementById('ok')
+SuljeVVDialog.addEventListener('click', () => {
+    VaihaVaihdeDialog.close();
+})
+
 
 async function jakomaara() {
     let kakkamaara = await fetch(`http://127.0.0.1:3000/jakomaara?id=${globalid}`)
@@ -78,17 +104,13 @@ async function jakomaara() {
     document.querySelector('#kakkaMaara').innerHTML=globaltiedot;
     let saatuPaska = document.querySelector('#kakkaMaara').innerHTML;
     console.log(saatuPaska);
+    vaihda_vaihe();
     if (saatuPaska >= 10) {
         kaikki_loppuuHYVIN();
     } else {
         kaikki_loppuuHUONOSTI();
     }
 }
-
-function vaihda_vaihe(){
-    window.alert("vaihde vaihtuu toveri!");
-}
-
 
 //luodaan kakkanäppäin, joka ei returnaa mitään arvoa (void), sis. css muotoilun
 var kakkanappain = L.Control.extend({
@@ -118,7 +140,6 @@ var kakkanappain = L.Control.extend({
                 jakomaara();
                 let saatuPaska = document.querySelector('#kakkaMaara').innerHTML;
                 console.log(saatuPaska);
-                vaihda_vaihe();
             } else {
                 container.disabled = false;
                 kakkaa(globalid, poroLat, poroLng);
@@ -266,16 +287,11 @@ window.addEventListener('load', event => {
     Adialog.showModal();
 })
 const Adialog = document.getElementById('alkuModal')
-//about dialogin sulkeminen
+// dialogin sulkeminen
 const closeAvausDialog = document.getElementById('sendStart')
-//sulkee about dialogin
+//sulkee dialogin
 closeAvausDialog.addEventListener('click', () => {
     Adialog.close();
 })
 
-//loppumodal
-window.addEventListener('options', capture => {
-    Ldialog.showModal();
-})
-const Ldialog = document.getElementById('lopetusModal')
-// dialogin sulkeminen
+

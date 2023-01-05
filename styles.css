@@ -141,3 +141,43 @@ ul {
   color: white;
   outline-color: #521356;
 }
+
+#VaiheVaihtuu {
+  text-align: center;
+  color: #521356;
+  background-color: #f4f4f4;
+}
+
+#ok {
+  text-align: center;
+  background-color: #521356;
+  color: #f4f4f4;
+}
+
+#HyvaLoppuModal {
+  text-align: center;
+  background-color: #f4f4f4;
+  color: #521356;
+}
+
+#HyvaRestart {
+  text-align: center;
+  background-color: #521356;
+  color: #f4f4f4;
+}
+
+#HuonoLoppuModal {
+  text-align: center;
+  background-color: #521356;
+  color: #f4f4f4;
+}
+
+#HuonoRestart {
+  text-align: center;
+  background-color: #f4f4f4;
+  color: #521356;
+}
+
+.body {
+  padding: 2rem;
+}

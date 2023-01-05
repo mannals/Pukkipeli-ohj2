@@ -72,22 +72,27 @@
     </div>
 </div>
 
-
-<dialog id="loppuModal" class="modal">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">Peli loppui!</h5>
-            </div>
-            <div class="modal-body">
-                lol <br> loppu tuli toveri</b>
-            </div>
-            <div class="modal-footer">
-            </div>
-        </div>
-    </div>
+<dialog id="VaiheVaihtuu" class="modal">
+    <h5 class="otsikko">Aika loppui!</h5>
+    <button id="ok">OK</button>
 </dialog>
 
-</body>
+<dialog id="HyvaLoppuModal" class="modal">
+    <h5 class="modal-title">Peli loppui!</h5>
+        <div class="body">
+                Hienosti jaettu kakat! <br>Pukki kiittää :)</b>
+        </div>
+    <button id="HyvaRestart" type="button">Aloita peli uudestaan</button>
+    <div class="modal-footer"></div>
+</dialog>
 
+<dialog id="HuonoLoppuModal" class="modal">
+    <h5 class="modal-title">Peli loppui!</h5>
+    <div class="body">
+        Surkeaa toimintaa! <br>Et osunut edes 10 koneeseen :(
+    </div>
+    <button id="HuonoRestart" type="button">Aloita peli uudestaan</button>
+    <div class="modal-footer"></div>
+</dialog>
+</body>
 </html>
