@@ -99,17 +99,10 @@ SuljeVVDialog.addEventListener('click', () => {
 async function jakomaara() {
     let kakkamaara = await fetch(`http://127.0.0.1:3000/jakomaara?id=${globalid}`)
     const tiedot = await kakkamaara.json()
-    console.log('toinen vaihe alkaa')
     globaltiedot = tiedot['kakatut_kentat']
     document.querySelector('#kakkaMaara').innerHTML=globaltiedot;
     let saatuPaska = document.querySelector('#kakkaMaara').innerHTML;
     console.log(saatuPaska);
-    vaihda_vaihe();
-    if (saatuPaska >= 10) {
-        kaikki_loppuuHYVIN();
-    } else {
-        kaikki_loppuuHUONOSTI();
-    }
 }
 
 //luodaan kakkanäppäin, joka ei returnaa mitään arvoa (void), sis. css muotoilun
@@ -137,9 +130,15 @@ var kakkanappain = L.Control.extend({
 
             if (document.querySelector('#aikaa-jaljella').innerHTML === "0") {
                 container.disabled = true;
-                jakomaara();
                 let saatuPaska = document.querySelector('#kakkaMaara').innerHTML;
                 console.log(saatuPaska);
+                vaihda_vaihe();
+                if (saatuPaska >= 10) {
+                    kaikki_loppuuHYVIN();
+                } else {
+                    kaikki_loppuuHUONOSTI();
+                }
+                //jakomaara();
             } else {
                 container.disabled = false;
                 kakkaa(globalid, poroLat, poroLng);
@@ -259,6 +258,7 @@ async function kakkaa() {
     let kakkapaikka = await fetch(`http://127.0.0.1:3000/kakkaus?id=${globalid}&aqi=${aqi}`)
     const tiedot = await kakkapaikka.json()
     console.log(tiedot)
+    jakomaara();
 }
 
 async function anna_lahja() {
