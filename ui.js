@@ -62,14 +62,27 @@ map.addLayer(layer);
 
 let globaltiedot;
 
+function kaikki_loppuuHYVIN() {
+    window.alert("GREAT JOBE VELI JEEEEE");
+}
+
+function kaikki_loppuuHUONOSTI() {
+    window.alert("U SUUUUUUCK MEE KOTIIS");
+}
+
 async function jakomaara() {
     let kakkamaara = await fetch(`http://127.0.0.1:3000/jakomaara?id=${globalid}`)
     const tiedot = await kakkamaara.json()
-    console.log('seuraavana jakomaara objekti')
+    console.log('toinen vaihe alkaa')
     globaltiedot = tiedot['kakatut_kentat']
     document.querySelector('#kakkaMaara').innerHTML=globaltiedot;
     let saatuPaska = document.querySelector('#kakkaMaara').innerHTML;
     console.log(saatuPaska);
+    if (saatuPaska >= 10) {
+        kaikki_loppuuHYVIN();
+    } else {
+        kaikki_loppuuHUONOSTI();
+    }
 }
 
 function vaihda_vaihe(){
@@ -103,6 +116,8 @@ var kakkanappain = L.Control.extend({
             if (document.querySelector('#aikaa-jaljella').innerHTML === "0") {
                 container.disabled = true;
                 jakomaara();
+                let saatuPaska = document.querySelector('#kakkaMaara').innerHTML;
+                console.log(saatuPaska);
                 vaihda_vaihe();
             } else {
                 container.disabled = false;
@@ -138,13 +153,6 @@ var lahjanappain = L.Control.extend({
         containerL.onclick = function () {
             if (document.querySelector('#aikaa-jaljella').innerHTML === "0") {
                 anna_lahja(globalid, poroLat, poroLng);
-                // async function maarienHaku() {
-                //     let kakkamaara = await fetch(`http://127.0.0.1:3000/jakomaara?id=${globalid}`)
-                //     const tiedot = await kakkamaara.json()
-                //     globaltiedot = tiedot['kakatut_kentat']
-                //     console.log(globaltiedot);
-                // }
-                // maarienHaku();
 
                 //let lahja_maara = jakomaara()
                 //console.log(lahja_maara)
@@ -159,6 +167,7 @@ var lahjanappain = L.Control.extend({
     },
 
 });
+
 
 //lisätään leaflet karttaan kakkanäppäin
 map.addControl(new kakkanappain());
@@ -263,10 +272,6 @@ const closeAvausDialog = document.getElementById('sendStart')
 closeAvausDialog.addEventListener('click', () => {
     Adialog.close();
 })
-
-function kaikki_loppuu() {
-    window.alert("KAIKKI LOPPUU TOVERI");
-}
 
 //loppumodal
 window.addEventListener('options', capture => {

@@ -92,7 +92,7 @@ def lahjaus():
 def jakomaara():
     args = request.args
     peli_id = args.get("id")
-    peliinfot = Pelaaja(peli_id, "", False, False, jakomaara)
+    peliinfot = Pelaaja(peli_id, "", True, True, jakomaara)
     json_data = peliinfot.pelitiedot()
     return json_data
 
