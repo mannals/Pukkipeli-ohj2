@@ -72,17 +72,14 @@
     </div>
 </div>
 
-<dialog id="VaiheVaihtuu" class="modal">
-    <h5 class="otsikko">Aika loppui!</h5>
-    <button id="ok">OK</button>
-</dialog>
-
 <dialog id="HyvaLoppuModal" class="modal">
     <h5 class="modal-title">Peli loppui!</h5>
         <div class="body">
                 Hienosti jaettu kakat! <br>Pukki kiittää :)</b>
         </div>
-    <button id="HyvaRestart" type="button">Aloita peli uudestaan</button>
+    <form action="main.html" id="HyvaRestart">
+        <input type="submit" value="Aloita peli uudestaan" />
+    </form>
     <div class="modal-footer"></div>
 </dialog>
 
@@ -91,7 +88,9 @@
     <div class="body">
         Surkeaa toimintaa! <br>Et osunut edes 10 koneeseen :(
     </div>
-    <button id="HuonoRestart" type="button">Aloita peli uudestaan</button>
+     <form action="main.html" id="HuonoRestart">
+        <input type="submit" value="Aloita peli uudestaan" />
+    </form>
     <div class="modal-footer"></div>
 </dialog>
 </body>
