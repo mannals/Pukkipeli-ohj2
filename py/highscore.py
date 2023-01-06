@@ -13,31 +13,36 @@ yhteys = mysql.connector.connect(
     port=3306,
     database='fl1ght_game',
     user='root',
-    password='vaahtokarkki',
+    password='MiksiRikoit56Lamppua?',
     autocommit=True
     )
 
-def findPlayer():
-    sql = '''SELECT name FROM peli;'''
-    kursori = yhteys.cursor()
+def tuo_pistedata():
+    kursori = yhteys.cursor(dictionary=True, buffered=True)
+    sql = f"SELECT name, highscore FROM peli;"
     kursori.execute(sql)
-    tulos = [i[0] for i in kursori.fetchall()]
+    tulos = kursori.fetchall()
+    print(tulos)
     return tulos
 
-def findHighscore():
-    sql = f'''SELECT MAX(kakatut_kentat) FROM peli WHERE name = '{Pelaaja.nimi}';'''
-    kursori = yhteys.cursor()
-    kursori.execute(sql)
-    tulos = [i[0] for i in kursori.fetchall()]
-    return tulos
+def nimet():
+    nimilista = []
+    tietolista = tuo_pistedata()
+    for alkio in tietolista:
+        nimilista.append(alkio['name'])
+    return nimilista
 
+def pistemaarat():
+    pistelista = []
+    tietolista = tuo_pistedata()
+    for alkio in tietolista:
+        pistelista.append(alkio['highscore'])
+    return pistelista
 
-print(findPlayer())
-print(findHighscore())
 
 fig = go.Figure(data=[go.Table(header=dict(values=['Player', 'Highscore']),
-                 cells=dict(values=[findPlayer(), findHighscore()]))
+                 cells=dict(values=[nimet(), pistemaarat()]))
                      ])
 fig.show()
 
-fig.write_html("C:/Users/peppi/OneDrive/Documents/GitHub/Pukkipeli-ohj2/highscore.html")
+fig.write_html("C:/Users/OMISTAJA/OneDrive/Documents/GitHub/Pukkipeli-ohj2/highscore.html")
