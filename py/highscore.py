@@ -1,5 +1,6 @@
 # highscore taulukko
 
+import chart_studio.plotly as py
 import plotly.graph_objects as go
 import mysql.connector
 
@@ -28,15 +29,15 @@ def tuo_pistedata():
 def nimet():
     nimilista = []
     tietolista = tuo_pistedata()
-    for alkio in tietolista:
-        nimilista.append(alkio['name'])
+    for i in range(5):
+        nimilista.append(tietolista[i]['name'])
     return nimilista
 
 def pistemaarat():
     pistelista = []
     tietolista = tuo_pistedata()
-    for alkio in tietolista:
-        pistelista.append(alkio['highscore'])
+    for i in range(5):
+        pistelista.append(tietolista[i]['highscore'])
     return pistelista
 
 
@@ -45,4 +46,4 @@ fig = go.Figure(data=[go.Table(header=dict(values=['Player', 'Highscore']),
                      ])
 fig.show()
 
-fig.write_html("C:/Users/OMISTAJA/OneDrive/Documents/GitHub/Pukkipeli-ohj2/highscore.html")
+fig.write_html("C:/Users/OMISTAJA/OneDrive/Tiedostot/GitHub/Pukkipeli-ohj2/highscore.html")
