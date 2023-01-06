@@ -50,7 +50,7 @@ def porospeksit():
     playerr = args.get("pelaaja")
     loc = args.get("sijainti")
     # json_data = {"pelaaja": pelaaja, "latitude": lat, "longitude": lng, "sijainti": loc}
-    peliinfot = Pelaaja(0, loc, False, False, 0, playerr)
+    peliinfot = Pelaaja(0, loc, False, 0, playerr)
 
     json_data = peliinfot.pelitiedot()
     print(json_data)
@@ -75,16 +75,7 @@ def kakkaus():
     args = request.args
     peli_id = args.get("id")
     aqi = args.get("aqi")
-    peliinfot = Pelaaja(peli_id, "", True, False, aqi)
-    json_data = peliinfot.pelitiedot()
-    return json_data
-
-@app.route('/lahjaus')
-def lahjaus():
-    args = request.args
-    peli_id = args.get("id")
-    aqi = args.get("aqi")
-    peliinfot = Pelaaja(peli_id, "", False, True, aqi)
+    peliinfot = Pelaaja(peli_id, "", True, aqi)
     json_data = peliinfot.pelitiedot()
     return json_data
 
@@ -92,7 +83,7 @@ def lahjaus():
 def jakomaara():
     args = request.args
     peli_id = args.get("id")
-    peliinfot = Pelaaja(peli_id, "", True, True, jakomaara)
+    peliinfot = Pelaaja(peli_id, "", True, jakomaara)
     json_data = peliinfot.pelitiedot()
     return json_data
 

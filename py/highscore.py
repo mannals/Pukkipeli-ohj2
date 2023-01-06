@@ -3,27 +3,29 @@
 import plotly.graph_objects as go
 import mysql.connector
 
+from peli import Pelaaja
+
 playerValues = []
 highscoreValues = []
 
 yhteys = mysql.connector.connect(
     host='localhost',
     port=3306,
-    database='flight_game',
+    database='fl1ght_game',
     user='root',
-    password='moikkamarjukka',
+    password='vaahtokarkki',
     autocommit=True
     )
 
 def findPlayer():
-    sql = '''SELECT screen_name FROM game;'''
+    sql = '''SELECT name FROM peli;'''
     kursori = yhteys.cursor()
     kursori.execute(sql)
     tulos = [i[0] for i in kursori.fetchall()]
     return tulos
 
 def findHighscore():
-    sql = '''SELECT location FROM game;'''
+    sql = f'''SELECT MAX(kakatut_kentat) FROM peli WHERE name = '{Pelaaja.nimi}';'''
     kursori = yhteys.cursor()
     kursori.execute(sql)
     tulos = [i[0] for i in kursori.fetchall()]

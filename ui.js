@@ -84,17 +84,6 @@ SuljeHuonoLoppuDialog.addEventListener('click', () => {
     HuonoLoppuDialog.close();
 })
 
-//vaihe vaihtuu
-function vaihda_vaihe() {
-    VaihaVaihdeDialog.showModal();
-}
-
-let VaihaVaihdeDialog = document.getElementById('VaiheVaihtuu')
-const SuljeVVDialog = document.getElementById('ok')
-SuljeVVDialog.addEventListener('click', () => {
-    VaihaVaihdeDialog.close();
-})
-
 
 async function jakomaara() {
     let kakkamaara = await fetch(`http://127.0.0.1:3000/jakomaara?id=${globalid}`)
@@ -131,14 +120,12 @@ var kakkanappain = L.Control.extend({
             if (document.querySelector('#aikaa-jaljella').innerHTML === "0") {
                 container.disabled = true;
                 let saatuPaska = document.querySelector('#kakkaMaara').innerHTML;
-                console.log(saatuPaska);
-                vaihda_vaihe();
+                console.log(saatuPaska)
                 if (saatuPaska >= 10) {
                     kaikki_loppuuHYVIN();
                 } else {
                     kaikki_loppuuHUONOSTI();
                 }
-                //jakomaara();
             } else {
                 container.disabled = false;
                 kakkaa(globalid, poroLat, poroLng);
@@ -149,49 +136,8 @@ var kakkanappain = L.Control.extend({
 
 });
 
-var lahjanappain = L.Control.extend({
-    options: {
-        position: 'topright'
-        //control position - allowed: 'topleft', 'topright', 'bottomleft', 'bottomright'
-    },
-
-    onAdd: function (map) {
-        var containerL = L.DomUtil.create('button');
-        containerL.type = "button";
-        containerL.innerHTML = '<img src="img/gift.png" height="80%" width="80%";>'
-        containerL.style.width = '64px';
-        containerL.style.height = '64px';
-        containerL.style.alignContent = 'center';
-        containerL.style.border = '#88a9b2 2px solid';
-        containerL.style.borderRadius = '2em';
-
-        containerL.style.margin = '10px';
-        containerL.style.alignContent = 'center';
-        containerL.style.cursor = 'pointer';
-        containerL.disabled = false;
-
-        containerL.onclick = function () {
-            if (document.querySelector('#aikaa-jaljella').innerHTML === "0") {
-                anna_lahja(globalid, poroLat, poroLng);
-
-                //let lahja_maara = jakomaara()
-                //console.log(lahja_maara)
-                //lahja_maara -= 1
-               // if (lahja_maara === 0) {
-                //    kaikki_loppuu()
-               // }
-            }
-        }
-
-        return containerL;
-    },
-
-});
-
-
 //lisätään leaflet karttaan kakkanäppäin
 map.addControl(new kakkanappain());
-map.addControl(new lahjanappain());
 
 //noudetaan lentokenttä lista
 async function noudaLentsidata() {
@@ -259,12 +205,6 @@ async function kakkaa() {
     const tiedot = await kakkapaikka.json()
     console.log(tiedot)
     jakomaara();
-}
-
-async function anna_lahja() {
-    let lahjapaikka = await fetch(`http://127.0.0.1:3000/lahjaus?id=${globalid}&aqi=${aqi}`)
-    const tiedot = await lahjapaikka.json()
-    console.log(tiedot)
 }
 
 //luodaan funktio, jolla voidaan siirtää poroikonia (options on ulkonäkö ja liikutettavuus)

@@ -19,8 +19,6 @@ class Tietokanta:
 
 #täysin turha funktio?
     def nimea_pelaaja(self, nimi: str):
-        #sql = "INSERT INTO peli VALUES ('"+ id +"'," + kakatut_kentat
-        #alla olevaan sql koodiin muunnos +=, eikä tarvii insert into-lausetta
         sql = f'INSERT INTO peli(nimi) VALUES ("{nimi}");'
         kursori = self.yhteys.cursor()
         kursori.execute(sql)

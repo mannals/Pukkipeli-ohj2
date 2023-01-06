@@ -1,16 +1,17 @@
 from database import Tietokanta
 import time
 tk = Tietokanta()
+import plotly.graph_objects as go
 
 # pelaajan mukaan liitetyt ominaisuudet
 class Pelaaja:
-    def __init__(self, id, sijaintinimi="", kakkaa=False, lahja=False, aqi = 0, nimi="", jakomaara = 0):
+    def __init__(self, id, sijaintinimi="", kakkaa=False, aqi = 0, nimi="", highscore= 0, jakomaara = 0):
         self.id = id
+        self.sijaintinimi = sijaintinimi
         self.nimi = nimi
         self.kakkaa = kakkaa
-        self.lahja = lahja
         self.aqi = aqi
-        self.sijaintinimi = sijaintinimi
+        self.highscore = highscore
         self.jakomaara = jakomaara
         kursori = tk.yhteys.cursor(dictionary=True, buffered=True)
         # jos pelaaja on uusi
@@ -30,11 +31,6 @@ class Pelaaja:
             self.sijaintinimi = tiedot['sijainti']
             self.kakka_confirmed()
 
-        if self.lahja:
-            tiedot= self.pelitiedot()
-            self.sijaintinimi = tiedot['sijainti']
-            self.lahja_confirmed()
-
     def pelitiedot(self):
         kursori = tk.yhteys.cursor(dictionary=True, buffered=True)
         sql = f"SELECT * from peli WHERE id = {self.id};"
@@ -53,7 +49,9 @@ class Pelaaja:
             if saakopisteita:
                 kursori = tk.yhteys.cursor(dictionary=True, buffered=True)
                 sql = f"UPDATE peli SET kakatut_kentat = kakatut_kentat+1 WHERE id={self.id};"
+                sql2 = f"UPDATE peli SET highscore = highscore+1 WHERE id={self.id};"
                 kursori.execute(sql)
+                kursori.execute(sql2)
             return True
         return False
 
@@ -68,7 +66,7 @@ class Pelaaja:
         else:
             return True
 
-    # Ylempi funktio tarkemmin?
+    # kakkapisteet ilmaindeksin mukaan
     def saakoKakkapisteita(self, aqi):
         kursori = tk.yhteys.cursor(dictionary=True, buffered=True)
         sql = f"SELECT air_pollution FROM airport WHERE name = '{self.sijaintinimi}';"
@@ -81,43 +79,24 @@ class Pelaaja:
         elif aqiArvo == 3 or aqiArvo == 4 or aqiArvo == 5:
             return False
 
-#lahja osio
-    def lahja_confirmed(self):
+    def findPlayer(self):
         kursori = tk.yhteys.cursor(dictionary=True, buffered=True)
-        if self.lahja_check():
-            sql = f"INSERT INTO goal_reached (game_id, airport_name) VALUES ({self.id}, '{self.sijaintinimi}');"
-            kursori.execute(sql)
-            saakopisteita = self.saakoLahjapisteita(self.aqi)
-            if saakopisteita:
-                kursori = tk.yhteys.cursor(dictionary=True, buffered=True)
-                sql = f"UPDATE peli SET lahjat_annettu = lahjat_annettu+1 WHERE id={self.id};"
-                kursori.execute(sql)
-            return True
-        return False
-
-    # Tsekkaa, onko jo lahja kentälle (ettei voi uudestaan lahjaa)
-    def lahja_check(self):
-        kursori = tk.yhteys.cursor(dictionary=True, buffered=True)
-        sql = f"SELECT * FROM goal_reached WHERE game_id = {self.id} AND airport_name = '{self.sijaintinimi}';"
+        sql = '''SELECT name FROM peli;'''
         kursori.execute(sql)
-        tulos = kursori.fetchall()
-        if len(tulos) > 0:
-            return False
-        else:
-            return True
+        tulos = [i[0] for i in kursori.fetchall()]
+        return tulos
 
-    # Onnistuuko kakkaus
-    def saakoLahjapisteita(self, aqi):
+    def findHighscore(self):
         kursori = tk.yhteys.cursor(dictionary=True, buffered=True)
-        sql = f"SELECT air_pollution FROM airport WHERE name = '{self.sijaintinimi}';"
+        sql = f"SELECT MAX(kakatut_kentat) FROM peli WHERE name = '{self.nimi}';"
         kursori.execute(sql)
-        tulos = kursori.fetchone()
-        aqiArvo = int(tulos['air_pollution'])
-        if aqiArvo == 1 or aqiArvo == 2:
-            self.jakomaara -= 1
-            return False
-        elif aqiArvo == 3 or aqiArvo == 4 or aqiArvo == 5:
-            self.jakomaara -= 1
-            return True
+        tulos = [i[0] for i in kursori.fetchall()]
+        return tulos
 
+    fig = go.Figure(data=[go.Table(header=dict(values=['Player', 'Highscore']),
+                                   cells=dict(values=[findPlayer(""), findHighscore(0)]))
+                          ])
+    fig.show()
+
+    fig.write_html("C:/Users/tytti/OneDrive/Documents/GitHub/Pukkipeli-ohj2/highscore.html")
 
