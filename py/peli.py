@@ -93,10 +93,3 @@ class Pelaaja:
         tulos = [i[0] for i in kursori.fetchall()]
         return tulos
 
-    fig = go.Figure(data=[go.Table(header=dict(values=['Player', 'Highscore']),
-                                   cells=dict(values=[findPlayer(""), findHighscore(0)]))
-                          ])
-    fig.show()
-
-    fig.write_html("C:/Users/tytti/OneDrive/Documents/GitHub/Pukkipeli-ohj2/highscore.html")
-
