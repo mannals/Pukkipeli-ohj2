@@ -1,13 +1,10 @@
 # highscore taulukko
 
-import chart_studio.plotly as py
 import plotly.graph_objects as go
+import plotly.offline as po
 import mysql.connector
 
-from peli import Pelaaja
-
-playerValues = []
-highscoreValues = []
+sivu = 'C:/Users/OMISTAJA/OneDrive/Tiedostot/GitHub/Pukkipeli-ohj2/top_pisteet.html'
 
 yhteys = mysql.connector.connect(
     host='localhost',
@@ -45,5 +42,10 @@ fig = go.Figure(data=[go.Table(header=dict(values=['Player', 'Highscore']),
                  cells=dict(values=[nimet(), pistemaarat()]))
                      ])
 fig.show()
+print(type(fig))
 
-fig.write_html("C:/Users/OMISTAJA/OneDrive/Tiedostot/GitHub/Pukkipeli-ohj2/highscore.html")
+divi = po.plot(fig, include_plotlyjs=False, output_type='div')
+
+with open(sivu, 'w') as taulukko:
+    taulukko.write(f'<!DOCTYPE html><html><head><script src="https://cdn.plot.ly/plotly-latest.min.js"></script></head><body>{divi}</body></html>')
+
