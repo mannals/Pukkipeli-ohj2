@@ -14,11 +14,6 @@ load_dotenv()
 lentopeli = Tietokanta()
 yhteys = lentopeli.ota_yhteys()
 
-
-#hidastaa käynnistystä?
-
-
-
 app = Flask(__name__)
 cors = CORS(app)
 app.config['CORS_HEADERS'] = 'Content-Type'
@@ -49,7 +44,6 @@ def porospeksit():
     args = request.args
     playerr = args.get("pelaaja")
     loc = args.get("sijainti")
-    # json_data = {"pelaaja": pelaaja, "latitude": lat, "longitude": lng, "sijainti": loc}
     peliinfot = Pelaaja(0, loc, False, 0, playerr)
 
     json_data = peliinfot.pelitiedot()
@@ -62,7 +56,6 @@ def liikkuminen():
     args = request.args
     peli_id = args.get("peli_id")
     loc = args.get("kohde")
-    # json_data = {"pelaaja": pelaaja, "latitude": lat, "longitude": lng, "sijainti": loc}
     peliinfot = Pelaaja(peli_id, loc)
 
     json_data = peliinfot.pelitiedot()

@@ -17,7 +17,6 @@ class Tietokanta:
     def ota_yhteys(self):
         return self.yhteys
 
-#täysin turha funktio?
     def nimea_pelaaja(self, nimi: str):
         sql = f'INSERT INTO peli(nimi) VALUES ("{nimi}");'
         kursori = self.yhteys.cursor()

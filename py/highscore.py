@@ -17,7 +17,7 @@ yhteys = mysql.connector.connect(
 
 def tuo_pistedata():
     kursori = yhteys.cursor(dictionary=True, buffered=True)
-    sql = f"SELECT name, kakatut_kentat FROM peli;"
+    sql = f"SELECT distinct name, kakatut_kentat FROM peli ORDER BY kakatut_kentat desc;"
     kursori.execute(sql)
     tulos = kursori.fetchall()
     print(tulos)

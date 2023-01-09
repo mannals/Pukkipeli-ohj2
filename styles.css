@@ -1,6 +1,7 @@
 html {
   background-image: url("img/pinesL.jpg");
   background-repeat: no-repeat;
+  font-family: "Calibri";
 }
 
 .modal-header {
