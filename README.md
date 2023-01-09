@@ -14,5 +14,5 @@ Huomenta huomenta rakkaat kollaboraattorini:
 ![highscore](https://github.com/mannals/Pukkipeli-ohj2/blob/b5f80ad38834cf7014a5311a2ed72792444ec792/img/Screenshot/2.png?raw=true)
 ![lisainfo](https://github.com/mannals/Pukkipeli-ohj2/blob/b5f80ad38834cf7014a5311a2ed72792444ec792/img/Screenshot/3.png?raw=true)
 ![kuvapelista](https://github.com/mannals/Pukkipeli-ohj2/blob/b5f80ad38834cf7014a5311a2ed72792444ec792/img/Screenshot/4.png?raw=true)
-![huonoloppu]](https://github.com/mannals/Pukkipeli-ohj2/blob/b5f80ad38834cf7014a5311a2ed72792444ec792/img/Screenshot/5.png?raw=true)
-![hyvaloppu]](https://github.com/mannals/Pukkipeli-ohj2/blob/b5f80ad38834cf7014a5311a2ed72792444ec792/img/Screenshot/6.png?raw=true)
+![huonoloppu](https://github.com/mannals/Pukkipeli-ohj2/blob/b5f80ad38834cf7014a5311a2ed72792444ec792/img/Screenshot/5.png?raw=true)
+![hyvaloppu](https://github.com/mannals/Pukkipeli-ohj2/blob/b5f80ad38834cf7014a5311a2ed72792444ec792/img/Screenshot/6.png?raw=true)
