@@ -49,9 +49,7 @@ class Pelaaja:
             if saakopisteita:
                 kursori = tk.yhteys.cursor(dictionary=True, buffered=True)
                 sql = f"UPDATE peli SET kakatut_kentat = kakatut_kentat+1 WHERE id={self.id};"
-                sql2 = f"UPDATE peli SET highscore = highscore+1 WHERE id={self.id};"
                 kursori.execute(sql)
-                kursori.execute(sql2)
             return True
         return False
 

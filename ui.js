@@ -1,6 +1,6 @@
 'use strict';
 //leafletiin perustuvaa kartan luontia
-const map = L.map('map').setView([55.97, 12.83], 4);
+const map = L.map('map').setView([55.97, 12.83], 3);
 
 let poroLat = 66.56167;
 let poroLng = 25.83083;
