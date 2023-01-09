@@ -9,3 +9,5 @@ Huomenta huomenta rakkaat kollaboraattorini:
 - peliruudun kokoa säädetty
 - ikoni näkyy markkerien päällä
 - interaktiivinen lumisade lisätty päävalikkoon (index.html)
+
+![kuvat](https://imgur.com/a/yXjt3Iz)
