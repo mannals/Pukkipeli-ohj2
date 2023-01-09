@@ -10,4 +10,4 @@ Huomenta huomenta rakkaat kollaboraattorini:
 - ikoni näkyy markkerien päällä
 - interaktiivinen lumisade lisätty päävalikkoon (index.html)
 
-![kuvat](https://github.com/[mannals]/[Pukkipeli-ohj2]/blob/[korjaus]/[img]/[Screenshot])
+![kuvat](img/1.jpg)
