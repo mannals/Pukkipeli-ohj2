@@ -10,7 +10,7 @@ class Tietokanta:
             port=3306,
             database='fl1ght_game',
             user='root',
-            password='MiksiRikoit56Lamppua?',
+            password='vaahtokarkki',
             autocommit=True
         )
 
